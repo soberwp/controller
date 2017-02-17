@@ -17,8 +17,9 @@ class Controller
     }
 
     /**
-     * Set Class methods
+     * Set Methods
      *
+     * Set the Class methods
      * @return object
      */
     protected function setMethods()
@@ -29,8 +30,9 @@ class Controller
     }
 
     /**
-     * Set Class Controller methods
+     * Set Controller Methods
      *
+     * Set the parent controller methods
      * @return object
      */
     protected function setControllerMethods()
@@ -40,8 +42,9 @@ class Controller
     }
 
     /**
-     * Exclude Class Controller methods
+     * Is Controller Method
      *
+     * Return true if the method belongs to the parent class
      * @return boolean
      */
     protected function isControllerMethod($method)
@@ -67,8 +70,9 @@ class Controller
     }
 
     /**
-     * Set Class methods
+     * Controller
      *
+     * Set the class methods to be run
      * @return object
      */
     public function controller()

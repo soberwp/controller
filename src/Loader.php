@@ -17,7 +17,7 @@ class Loader
     }
 
     /**
-     * Set path
+     * Set Path
      *
      * Set the path for the controller files
      * @return object
@@ -80,7 +80,7 @@ class Loader
     }
 
     /**
-     * Set instance
+     * Set Instance
      *
      * Add instance name and class to $instances[]
      */
