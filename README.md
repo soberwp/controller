@@ -67,11 +67,17 @@ use Sober\Controller\Controller;
 
 class Single extends Controller
 {
+    /**
+     * Protected and Private methods will not be passed to the template
+     */
     protected function hidden()
     {
-        // protected methods will not be exposed to the blade template.
+        
     }
 
+    /**
+     * Return images from Advanced Custom Fields
+     */
     public function images()
     {
         $images = get_field('images');
@@ -126,6 +132,9 @@ class Images extends Controller
 {
     public $template = ['single', 'page'];
 
+    /**
+     * Return images from Advanced Custom Fields
+     */
     public function images()
     {
         $images = get_field('images');
