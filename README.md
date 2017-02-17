@@ -43,14 +43,14 @@ The controller will autoload PHP files within the above path and its subdirector
 Name the Controller file the same name as the template file or [override the `$template` variable.](#option-template)
 * eg; `controllers/single.php`
 
-Extend the Controller Class.  The class doesn't have to correlate with the template name, but it is recommended.
+Extend the Controller Class.  The class doesn't have to match the template name.
 * eg: `class Single extends Controller {}`
 
 Create methods within the Controller Class;
-* Use `public static function` to expose the return values to the blade template. 
+* Use `public static function` to expose the returned values to the blade template/s. 
 * Use `protected static function` for internal controller methods (protected methods will not be exposed to the template).
 
-Return a value from the exposed public methods&mdash;which will be passed onto the blade template.
+Return a variable from the exposed public methods&mdash;which will be passed onto the blade template.
 
 #### Example: 
 
