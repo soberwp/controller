@@ -106,6 +106,9 @@ By default, the controller matches the template filename&mdash;but you can overr
 * To expose to multiple templates; 
     * `public $template = ['single', 'page'];`
 
+* To expose to all templates; 
+    * `public $template = 'all`;
+
 This allows you to create controllers based around components rather than per template.
 
 The following example will expose `$images` to both `templates/single.blade.php` and `templates/page.blade.php`

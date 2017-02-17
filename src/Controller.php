@@ -13,7 +13,7 @@ class Controller
 
     public function __construct()
     {
-        $this->setMethods()->setControllerMethods()->tasks();
+        $this->setMethods()->setControllerMethods()->formatTemplate()->tasks();
     }
 
     /**
@@ -52,6 +52,21 @@ class Controller
         if (in_array($method->name, $this->exclude)) {
             return true;
         }
+    }
+
+    /**
+     * Format Template
+     *
+     * Check for all string and add global
+     * @return object
+     */
+    protected function formatTemplate()
+    {
+        $this->template = (is_array($this->template) ? $this->template : array($this->template));
+        if (in_array('all', $this->template)) {
+            $this->template[] = 'global';
+        }
+        return $this;
     }
 
     /**

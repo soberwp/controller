@@ -30,6 +30,13 @@ if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
 }
 
 /**
+ * Filter body_class to include global
+ */
+add_filter('body_class', function($classes) {
+    return array_merge($classes, ['global']);
+});
+
+/**
  * Hook into add_action and initialise Loader class
  */
 add_action('init', function () {

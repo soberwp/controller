@@ -8,7 +8,7 @@ class Single extends Controller
 {
     protected function hidden()
     {
-        // protected methods will not be exposed to the blade template/s
+        // protected and private methods will not be exposed to the blade template/s
     }
 
     public function images()
