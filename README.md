@@ -24,7 +24,7 @@ $ wp plugin activate controller
 
 ## Setup
 
-By default, create folder `controllers/` within the active theme directory. 
+By default, create folder `controllers/` within your active theme directory. 
 
 Alternatively, you can define a custom path using the filter below within your themes `functions.php` file; 
 ```php
@@ -40,14 +40,17 @@ The controller will autoload PHP files within the above path and its subdirector
 
 #### Creating a Controller:
 
-* Name the controller file the same name as the template file. 
-  * eg; `controllers/single.php`
-* Extend the Controller Class.  The class doesn't have to correlate with the template name, but it is recommended.
-  * eg: `class Single extends Controller {}`
-* Return a value in the function, which will be passed to the blade template.
-  * The method name will become the variable name available in the blade template.
-    * Use `public static function` to expose the return values to the blade template. 
-    * Use `protected static function` for internal controller methods (protected methods will not be exposed to the template).
+Name the Controller file the same name as the template file or [override the `$template` variable.](#option-template)
+* eg; `controllers/single.php`
+
+Extend the Controller Class.  The class doesn't have to correlate with the template name, but it is recommended.
+* eg: `class Single extends Controller {}`
+
+Create methods within the Controller Class;
+* Use `public static function` to expose the return values to the blade template. 
+* Use `protected static function` for internal controller methods (protected methods will not be exposed to the template).
+
+Return a value from the exposed public methods&mdash;which will be passed onto the blade template.
 
 #### Example: 
 
@@ -91,7 +94,7 @@ class Single extends Controller
 @endif
 ```
 
-#### Option: change the Blade template/views;
+#### Template Option:<a name="option-template"></a>
 
 By default, the controller matches the template filename&mdash;but you can override the template to target by using; 
 
@@ -128,7 +131,7 @@ class Images extends Controller
 }
 ```
 
-#### Option: disable Controller;
+#### Disable Option;
 
 ```php
 class Images extends Controller
