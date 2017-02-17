@@ -41,10 +41,10 @@ The controller will autoload PHP files within the above path and its subdirector
 #### Creating a Controller:
 
 * Name the Controller file the same name as the template file or [override the `$template` variable.](#option-template)
-* Extend the Controller Class.  The class doesn't have to match the template name.
+* Extend the Controller Class.  The class name doesn't have to match the template name.
 * Create methods within the Controller Class;
     * Use `public static function` to expose the returned values to the blade template/s. 
-    * Use `protected static function` for internal controller methods (protected or private methods will not be exposed to the template).
+    * Use `protected static function` for internal controller methods as protected or private methods will not be exposed to the template.
 * Return a variable from the exposed public methods&mdash;which will be passed onto the blade template.
 
 #### Example: 
