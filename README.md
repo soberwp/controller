@@ -149,7 +149,7 @@ class Images extends Controller
 ```php
 class Images extends Controller
 {
-    protected $active = false;
+    public $active = false;
 }
 ```
 
