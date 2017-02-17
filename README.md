@@ -94,7 +94,9 @@ class Single extends Controller
 @endif
 ```
 
-#### Template Option:<a name="option-template"></a>
+<a name="option-template"></a>
+
+#### Template Option:
 
 By default, the controller matches the template filename&mdash;but you can override the template to target by using; 
 
