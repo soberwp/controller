@@ -1,0 +1,37 @@
+{
+  "name": "soberwp/controller",
+  "type": "wordpress-muplugin",
+  "license": "MIT",
+  "description": "WordPress plugin that enables a basic controller for Sage 9 and Blade",
+  "homepage": "https://github.com/soberwp",
+  "authors": [
+    {
+      "name": "Darren Jacoby",
+      "email": "darren@jacoby.co.za",
+      "homepage": "https://github.com/darrenjacoby"
+    }
+  ],
+  "keywords": [
+    "wordpress"
+  ],
+  "support": {
+    "issues": "https://github.com/soberwp/controller/issues"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sober\\Controller\\": "src/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpcs --extensions=php --ignore=vendor/ ."
+    ]
+  }
+}
