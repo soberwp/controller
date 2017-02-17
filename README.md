@@ -131,7 +131,7 @@ class Images extends Controller
 #### Option: disable Controller;
 
 ```php
-class Singular extends Controller
+class Images extends Controller
 {
     protected $active = false;
 }
