@@ -48,7 +48,7 @@ Extend the Controller Class.  The class doesn't have to match the template name.
 
 Create methods within the Controller Class;
 * Use `public static function` to expose the returned values to the blade template/s. 
-* Use `protected static function` for internal controller methods (protected methods will not be exposed to the template).
+* Use `protected static function` for internal controller methods (protected or private methods will not be exposed to the template).
 
 Return a variable from the exposed public methods&mdash;which will be passed onto the blade template.
 
@@ -146,7 +146,7 @@ class Images extends Controller
 
 #### Composer:
 
-* Change the composer.json version to ^1.0.3**
+* Change the composer.json version to ^1.0.0**
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell
