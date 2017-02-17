@@ -2,7 +2,7 @@
   "name": "soberwp/controller",
   "type": "wordpress-muplugin",
   "license": "MIT",
-  "description": "WordPress plugin that enables a basic controller for Sage 9 and Blade",
+  "description": "WordPress plugin to enable a basic controller when using Blade with Sage 9",
   "homepage": "https://github.com/soberwp",
   "authors": [
     {

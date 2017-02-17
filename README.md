@@ -1,6 +1,6 @@
 # Controller
 
-WordPress plugin that enables a basic controller for Sage 9 and Blade.
+WordPress plugin to enable a basic controller when using Blade with [Sage 9](https://roots.io/sage/).
 
 ## Installation
 
