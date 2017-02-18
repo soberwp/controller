@@ -78,10 +78,7 @@ class Single extends Controller
      */
     public function images()
     {
-        $images = get_field('images');
-        if ($images) {
-            return $images;
-        }
+        return get_field('images');
     }
 }
 ```
@@ -137,10 +134,7 @@ class Images extends Controller
      */
     public function images()
     {
-        $images = get_field('images');
-        if ($images) {
-            return $images;
-        }
+        return get_field('images');
     }
 }
 ```
