@@ -70,6 +70,17 @@ class Controller
     }
 
     /**
+     * Sanitize Method
+     *
+     * Change method name from camel case to snake case
+     * @return object
+     */
+    private function __sanitizeMethod($method)
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $method));
+    }
+
+    /**
      * Tasks
      *
      * Run each of the extended class public methods
@@ -77,10 +88,8 @@ class Controller
     private function __tasks()
     {
         foreach ($this->methods as $method) {
-            if ($this->__isControllerMethod($method)) {
-                continue;
-            }
-            $this->data[$method->name] = $this->{$method->name}();
+            if ($this->__isControllerMethod($method)) continue;
+            $this->data[$this->__sanitizeMethod($method->name)] = $this->{$method->name}();
         }
     }
 
