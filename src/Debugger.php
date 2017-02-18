@@ -43,7 +43,8 @@ class Debugger
         unset($this->data['post']);
         echo '<pre><ul>';
         foreach ($this->data as $name => $item) {
-            echo "<li>$" . $name . "(" . gettype($item) . ")</li>";
+            $item = (is_array($item) ? gettype($item) . '[' . count($item) . ']' : gettype($item));
+            echo "<li>$" . $name . " &raquo; " . $item . "</li>";
         }
         echo '</ul></pre>';
     }
