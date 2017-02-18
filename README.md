@@ -44,7 +44,7 @@ The controller will autoload PHP files within the above path and its subdirector
 * Extend the Controller Class&mdash;the class name does not have to match the template name.
 * Create methods within the Controller Class;
     * Use `public static function` to expose the returned values to the blade template/s. 
-    * Use `protected static function` for internal controller methods as protected or private methods will not be exposed to the template.
+    * Use `protected static function` for internal controller methods as only public methods are exposed to the template.
 * Return a value from the public methods which will be passed onto the blade template.
     * **Important:** the method name is converted to snake case and becomes the variable name in the blade template.
 
@@ -64,7 +64,7 @@ use Sober\Controller\Controller;
 class Single extends Controller
 {
     /**
-     * Protected and Private methods will not be passed to the template
+     * Protected methods will not be passed to the template
      */
     protected function hidden()
     {
