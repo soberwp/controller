@@ -73,7 +73,7 @@ class Controller
      * Sanitize Method
      *
      * Change method name from camel case to snake case
-     * @return object
+     * @return string
      */
     private function __sanitizeMethod($method)
     {
@@ -97,7 +97,7 @@ class Controller
      * Controller
      *
      * Set the class methods to be run
-     * @return object
+     * @return array
      */
     public function __controller()
     {
