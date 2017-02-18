@@ -46,7 +46,7 @@ The controller will autoload PHP files within the above path and its subdirector
     * Use `public static function` to expose the returned values to the blade template/s. 
     * Use `protected static function` for internal controller methods as protected or private methods will not be exposed to the template.
 * Return a value from the public methods which will be passed onto the blade template.
-    * **Important:** the method name becomes the variable name in the blade template.
+    * **Important:** the method name is converted to snake case and becomes the variable name in the blade template.
 
 #### Example: 
 
