@@ -23,7 +23,6 @@ class Controller
      * Set Methods
      *
      * Set the Class methods
-     * @return object
      */
     private function __setMethods()
     {
@@ -35,7 +34,6 @@ class Controller
      * Set Controller Methods
      *
      * Set the parent controller methods
-     * @return object
      */
     private function __setControllerMethods()
     {
@@ -59,7 +57,6 @@ class Controller
      * Sanitize Template
      *
      * Check for all string and add global
-     * @return object
      */
     private function __sanitizeTemplate()
     {
