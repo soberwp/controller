@@ -13,7 +13,10 @@ class Controller
 
     public function __construct()
     {
-        $this->__setMethods()->__setControllerMethods()->__sanitizeTemplate()->__tasks();
+        $this->__setMethods();
+        $this->__setControllerMethods();
+        $this->__sanitizeTemplate();
+        $this->__tasks();
     }
 
     /**
@@ -26,7 +29,6 @@ class Controller
     {
         $class = new \ReflectionClass($this);
         $this->methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
-        return $this;
     }
 
     /**
@@ -38,7 +40,6 @@ class Controller
     private function __setControllerMethods()
     {
         $this->exclude = get_class_methods(__CLASS__);
-        return $this;
     }
 
     /**
@@ -66,7 +67,6 @@ class Controller
         if (in_array('all', $this->template)) {
             $this->template[] = 'global';
         }
-        return $this;
     }
 
     /**
