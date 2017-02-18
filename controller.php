@@ -11,6 +11,7 @@ License URI:        http://opensource.org/licenses/MIT
 GitHub Plugin URI:  soberwp/controller
 GitHub Branch:      master
 */
+
 namespace Sober\Controller;
 
 /**
@@ -30,22 +31,29 @@ if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
 }
 
 /**
- * Filter body_class to include global
- */
-add_filter('body_class', function($classes) {
-    return array_merge($classes, ['global']);
-});
-
-/**
- * Hook into add_action and initialise Loader class
+ * Initialise Loader class
  */
 add_action('init', function () {
-    $instances = (new Loader())->controllers();
-    foreach ($instances as $instance) {
-        foreach ($instance['template'] as $name) {
-            add_filter('sage/template/' . $name . '/data', function ($data) use ($instance) {
-                return (new $instance['class'])->controller();
+    $loader = new Loader();
+    foreach ($loader->controllers() as $controller) {
+        foreach ($controller['template'] as $name) {
+            add_filter('sage/template/' . $name . '/data', function ($data) use ($controller) {
+                return (new $controller['class'])->__controller();
             });
         }
     }
+});
+
+/**
+ * Initialise Debugger class for Blade directive
+ */
+add_action('init', function () {
+    // Debug
+    \App\sage('blade')->compiler()->directive('debug', function () {
+        return '<?php (new \Sober\Controller\Debugger(get_defined_vars()))->debug(); ?>';
+    });
+    // Controller
+    \App\sage('blade')->compiler()->directive('controller', function () {
+        return '<?php (new \Sober\Controller\Debugger(get_defined_vars()))->controller(); ?>';
+    });
 });

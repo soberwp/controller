@@ -4,16 +4,16 @@ namespace Sober\Controller;
 
 class Controller
 {
-    protected $data = [];
-    protected $methods;
-    protected $exclude;
+    private $data = [];
+    private $methods;
+    private $exclude;
 
     public $active = true;
     public $template = false;
 
     public function __construct()
     {
-        $this->setMethods()->setControllerMethods()->formatTemplate()->tasks();
+        $this->__setMethods()->__setControllerMethods()->__sanitizeTemplate()->__tasks();
     }
 
     /**
@@ -22,7 +22,7 @@ class Controller
      * Set the Class methods
      * @return object
      */
-    protected function setMethods()
+    private function __setMethods()
     {
         $class = new \ReflectionClass($this);
         $this->methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
@@ -35,7 +35,7 @@ class Controller
      * Set the parent controller methods
      * @return object
      */
-    protected function setControllerMethods()
+    private function __setControllerMethods()
     {
         $this->exclude = get_class_methods(__CLASS__);
         return $this;
@@ -47,7 +47,7 @@ class Controller
      * Return true if the method belongs to the parent class
      * @return boolean
      */
-    protected function isControllerMethod($method)
+    private function __isControllerMethod($method)
     {
         if (in_array($method->name, $this->exclude)) {
             return true;
@@ -55,12 +55,12 @@ class Controller
     }
 
     /**
-     * Format Template
+     * Sanitize Template
      *
      * Check for all string and add global
      * @return object
      */
-    protected function formatTemplate()
+    private function __sanitizeTemplate()
     {
         $this->template = (is_array($this->template) ? $this->template : array($this->template));
         if (in_array('all', $this->template)) {
@@ -74,10 +74,10 @@ class Controller
      *
      * Run each of the extended class public methods
      */
-    protected function tasks()
+    private function __tasks()
     {
         foreach ($this->methods as $method) {
-            if ($this->isControllerMethod($method)) {
+            if ($this->__isControllerMethod($method)) {
                 continue;
             }
             $this->data[$method->name] = $this->{$method->name}();
@@ -90,7 +90,7 @@ class Controller
      * Set the class methods to be run
      * @return object
      */
-    public function controller()
+    public function __controller()
     {
         return ($this->active ? $this->data : array());
     }

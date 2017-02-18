@@ -12,34 +12,46 @@ class Loader
 
     public function __construct()
     {
-        $this->setPath()->getFiles();
-        $this->load();
-    }
+        $this->setPath();
 
+        if (!file_exists($this->path)) return;
+
+        $this->getFiles();
+        $this->load();
+        $this->addBodyClass();
+    }
+    
     /**
      * Set Path
      *
      * Set the path for the controller files
-     * @return object
      */
     protected function setPath()
     {
         $this->path = (has_filter('sober/controller/path') ?  apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/controllers');
-        return $this;
     }
 
     /**
      * Get Files
      *
      * Set the list of files
-     * @return object
      */
     protected function getFiles()
     {
-        if (!file_exists($this->path)) {
-            return;
-        }
         $this->files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
+    }
+
+    /**
+     * Add Body Class
+     *
+     * Add the required global body class
+     * @return string
+     */
+    protected function addBodyClass()
+    {
+        add_filter('body_class', function ($classes) {
+            return array_merge($classes, ['global']);
+        });
     }
 
     /**
@@ -74,9 +86,7 @@ class Loader
      */
     protected function isInstance()
     {
-        if (in_array(pathinfo($this->instance, PATHINFO_EXTENSION), ['php'])) {
-            return true;
-        }
+        return (in_array(pathinfo($this->instance, PATHINFO_EXTENSION), ['php']));
     }
 
     /**
@@ -96,9 +106,6 @@ class Loader
      */
     protected function load()
     {
-        if (!file_exists($this->path)) {
-            return;
-        }
         foreach ($this->files as $filename => $file) {
             $this->instance = $file;
             if (!$this->isInstance()) continue;
