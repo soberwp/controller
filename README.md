@@ -152,8 +152,8 @@ class Images extends Controller
 
 For debugging purposes;
 
-* `@controller` echos a list of variables available in the template.
-* `@debug` var_dumps a list of variables available in the template, including `$post`.
+* `@debug(controller)` echos a list of variables available in the template.
+* `@debug(dump)` var_dumps a list of variables available in the template, including `$post`.
 
 ## Updates
 

@@ -18,15 +18,19 @@
     "issues": "https://github.com/soberwp/controller/issues"
   },
   "require": {
-    "php": ">=5.4.0",
-    "composer/installers": "~1.0"
+    "php": ">=5.6.0",
+    "composer/installers": "~1.0",
+    "hassankhan/config": "^0.10.0",
+    "symfony/yaml": "^3.2"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*"
   },
   "autoload": {
     "psr-4": {
-      "Sober\\Controller\\": "src/"
+      "Sober\\Controller\\": "src/",
+      "Sober\\Controller\\Loader\\": "src/Loader/",
+      "Sober\\Controller\\Module\\": "src/Module/"
     }
   },
   "scripts": {

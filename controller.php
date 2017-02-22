@@ -3,7 +3,7 @@
 Plugin Name:        Controller
 Plugin URI:         http://github.com/soberwp/controller
 Description:        WordPress plugin to enable a basic controller when using Blade with Sage 9
-Version:            1.0.0-alpha1
+Version:            1.0.0-alpha3
 Author:             Sober
 Author URI:         http://github.com/soberwp/
 License:            MIT License
@@ -14,46 +14,43 @@ GitHub Branch:      master
 
 namespace Sober\Controller;
 
+use Sober\Controller\Loader\Config;
+use Sober\Controller\Loader\Controller;
+
 /**
- * Restrict direct access to file
+ * Plugin
  */
 if (!defined('ABSPATH')) {
     die;
-}
+};
+
+require(file_exists($composer = __DIR__ . '/vendor/autoload.php') ? $composer : __DIR__ . '/dist/autoload.php');
 
 /**
- * Require Composer PSR-4 autoloader, fallback dist/autoload.php
+ * Functions
  */
-if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
-    require $composer;
-} else {
-    require __DIR__ . '/dist/autoload.php';
-}
-
-/**
- * Initialise Loader class
- */
-add_action('init', function () {
-    $loader = new Loader();
-    foreach ($loader->controllers() as $controller) {
-        foreach ($controller['template'] as $name) {
-            add_filter('sage/template/' . $name . '/data', function ($data) use ($controller) {
+function controllers()
+{
+    $controllers = (new Controller())->get();
+    foreach ($controllers as $controller) {
+        foreach ($controller['template'] as $route) {
+            add_filter('sage/template/' . $route . '/data', function ($data) use ($controller) {
                 return (new $controller['class'])->__controller();
             });
         }
     }
-});
+}
+
+function debugger()
+{
+    \App\sage('blade')->compiler()->directive('debug', function ($type) {
+        $debugger = ($type === '' ? 'controller' : $type);
+        return '<?php (new \Sober\Controller\Module\Debugger(get_defined_vars(), ' . $debugger . ')); ?>';
+    });
+}
 
 /**
- * Initialise Debugger class for Blade directive
+ * Hooks
  */
-add_action('init', function () {
-    // Debug
-    \App\sage('blade')->compiler()->directive('debug', function () {
-        return '<?php (new \Sober\Controller\Debugger(get_defined_vars()))->debug(); ?>';
-    });
-    // Controller
-    \App\sage('blade')->compiler()->directive('controller', function () {
-        return '<?php (new \Sober\Controller\Debugger(get_defined_vars()))->controller(); ?>';
-    });
-});
+add_action('init', __NAMESPACE__ . '\controllers');
+add_action('init', __NAMESPACE__ . '\debugger');

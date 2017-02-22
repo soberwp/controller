@@ -56,13 +56,13 @@ class Controller
     /**
      * Sanitize Template
      *
-     * Check for all string and add global
+     * Check for all string and add base for global
      */
     private function __sanitizeTemplate()
     {
         $this->template = (is_array($this->template) ? $this->template : array($this->template));
         if (in_array('all', $this->template)) {
-            $this->template[] = 'global';
+            $this->template[] = 'base';
         }
     }
 

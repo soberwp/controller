@@ -1,16 +1,18 @@
 <?php
 
-namespace Sober\Controller;
+namespace Sober\Controller\Module;
 
 class Debugger
 {
     protected $data;
 
-    public function __construct($data, $dump = false)
+    public function __construct($data, $type)
     {
         $this->data = $data;
+        $this->type = $type;
 
         $this->sanitize();
+        $this->route();
     }
 
     /**
@@ -20,17 +22,39 @@ class Debugger
      */
     protected function sanitize()
     {
-        $this->data = array_diff_key($this->data['__data'], array_flip(array('__env', 'app', 'obLevel')));
+        $this->data = array_diff_key($this->data['__data'], array_flip(['__env', 'app', 'obLevel']));
     }
 
     /**
-     * Debug
+     * Route
+     *
+     * Run method depending on type
+     */
+    public function route()
+    {
+        if ($this->type === 'dump') $this->dump();
+        if ($this->type === 'config') $this->config();
+        if ($this->type === 'controller') $this->controller();
+    }
+
+    /**
+     * Dump
      *
      * Return var_dump of data
      */
-    public function debug()
+    public function dump()
     {
         var_dump($this->data);
+    }
+
+    /**
+     * Config
+     *
+     * Return list of keys and values from data
+     */
+    public function config()
+    {
+        var_dump($this->data['_config']);
     }
 
     /**

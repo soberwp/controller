@@ -9,7 +9,14 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Component\\Yaml\\' => 23,
+            'Sober\\Controller\\Module\\' => 24,
+            'Sober\\Controller\\Loader\\' => 24,
             'Sober\\Controller\\' => 17,
+        ),
+        'N' => 
+        array (
+            'Noodlehaus\\' => 11,
         ),
         'C' => 
         array (
@@ -18,9 +25,25 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Sober\\Controller\\Module\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Module',
+        ),
+        'Sober\\Controller\\Loader\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Loader',
+        ),
         'Sober\\Controller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Noodlehaus\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hassankhan/config/src',
         ),
         'Composer\\Installers\\' => 
         array (
@@ -101,8 +124,38 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
         'Composer\\Installers\\YawikInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/YawikInstaller.php',
         'Composer\\Installers\\ZendInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZendInstaller.php',
         'Composer\\Installers\\ZikulaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
+        'Noodlehaus\\AbstractConfig' => __DIR__ . '/..' . '/hassankhan/config/src/AbstractConfig.php',
+        'Noodlehaus\\Config' => __DIR__ . '/..' . '/hassankhan/config/src/Config.php',
+        'Noodlehaus\\ConfigInterface' => __DIR__ . '/..' . '/hassankhan/config/src/ConfigInterface.php',
+        'Noodlehaus\\ErrorException' => __DIR__ . '/..' . '/hassankhan/config/src/ErrorException.php',
+        'Noodlehaus\\Exception' => __DIR__ . '/..' . '/hassankhan/config/src/Exception.php',
+        'Noodlehaus\\Exception\\EmptyDirectoryException' => __DIR__ . '/..' . '/hassankhan/config/src/Exception/EmptyDirectoryException.php',
+        'Noodlehaus\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/hassankhan/config/src/Exception/FileNotFoundException.php',
+        'Noodlehaus\\Exception\\ParseException' => __DIR__ . '/..' . '/hassankhan/config/src/Exception/ParseException.php',
+        'Noodlehaus\\Exception\\UnsupportedFormatException' => __DIR__ . '/..' . '/hassankhan/config/src/Exception/UnsupportedFormatException.php',
+        'Noodlehaus\\FileParser\\AbstractFileParser' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/AbstractFileParser.php',
+        'Noodlehaus\\FileParser\\FileParserInterface' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/FileParserInterface.php',
+        'Noodlehaus\\FileParser\\Ini' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Ini.php',
+        'Noodlehaus\\FileParser\\Json' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Json.php',
+        'Noodlehaus\\FileParser\\Php' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Php.php',
+        'Noodlehaus\\FileParser\\Xml' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Xml.php',
+        'Noodlehaus\\FileParser\\Yaml' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Yaml.php',
+        'Sober\\Controller\\ConfigNoFile' => __DIR__ . '/../..' . '/src/ConfigNoFile.php',
         'Sober\\Controller\\Controller' => __DIR__ . '/../..' . '/src/Controller.php',
         'Sober\\Controller\\Loader' => __DIR__ . '/../..' . '/src/Loader.php',
+        'Sober\\Controller\\Loader\\Controller' => __DIR__ . '/../..' . '/src/Loader/Controller.php',
+        'Sober\\Controller\\Module\\Debugger' => __DIR__ . '/../..' . '/src/Module/Debugger.php',
+        'Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
+        'Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
+        'Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
+        'Symfony\\Component\\Yaml\\Exception\\DumpException' => __DIR__ . '/..' . '/symfony/yaml/Exception/DumpException.php',
+        'Symfony\\Component\\Yaml\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/yaml/Exception/ExceptionInterface.php',
+        'Symfony\\Component\\Yaml\\Exception\\ParseException' => __DIR__ . '/..' . '/symfony/yaml/Exception/ParseException.php',
+        'Symfony\\Component\\Yaml\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/yaml/Exception/RuntimeException.php',
+        'Symfony\\Component\\Yaml\\Inline' => __DIR__ . '/..' . '/symfony/yaml/Inline.php',
+        'Symfony\\Component\\Yaml\\Parser' => __DIR__ . '/..' . '/symfony/yaml/Parser.php',
+        'Symfony\\Component\\Yaml\\Unescaper' => __DIR__ . '/..' . '/symfony/yaml/Unescaper.php',
+        'Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

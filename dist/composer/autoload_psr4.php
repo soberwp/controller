@@ -6,6 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Sober\\Controller\\Module\\' => array($baseDir . '/src/Module'),
+    'Sober\\Controller\\Loader\\' => array($baseDir . '/src/Loader'),
     'Sober\\Controller\\' => array($baseDir . '/src'),
+    'Noodlehaus\\' => array($vendorDir . '/hassankhan/config/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

@@ -5,7 +5,6 @@ namespace Sober\Controller;
 class Loader
 {
     protected $path;
-    protected $file;
     protected $files;
     protected $instance;
     protected $instances = [];
@@ -17,18 +16,7 @@ class Loader
         if (!file_exists($this->path)) return;
 
         $this->getFiles();
-        $this->load();
-        $this->addBodyClass();
-    }
-    
-    /**
-     * Set Path
-     *
-     * Set the path for the controller files
-     */
-    protected function setPath()
-    {
-        $this->path = (has_filter('sober/controller/path') ?  apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/controllers');
+        $this->run();
     }
 
     /**
@@ -42,86 +30,14 @@ class Loader
     }
 
     /**
-     * Add Body Class
-     *
-     * Add the required global body class
-     * @return string
-     */
-    protected function addBodyClass()
-    {
-        add_filter('body_class', function ($classes) {
-            return array_merge($classes, ['global']);
-        });
-    }
-
-    /**
-     * Get Instance Class
-     *
-     * Return the class of the instance
-     * @return string
-     */
-    protected function getInstanceClass()
-    {
-        return '\\' . end(get_declared_classes());
-    }
-
-    /**
-     * Get Instance Template
-     *
-     * Return the template of the instance
-     * @return string
-     */
-    protected function getInstanceTemplate()
-    {
-        $class = $this->getInstanceClass();
-        $result = (new $class())->template;
-        return ($result ? $result : array(pathinfo($this->instance->getFileName(), PATHINFO_FILENAME)));
-    }
-
-    /**
-     * Is Instance
+     * Is File Extension
      *
      * Check if the file extension is PHP
      * @return boolean
      */
-    protected function isInstance()
+    protected function isFileExtension($extensions)
     {
-        return (in_array(pathinfo($this->instance, PATHINFO_EXTENSION), ['php']));
-    }
-
-    /**
-     * Set Instance
-     *
-     * Add instance name and class to $instances[]
-     */
-    protected function setInstance()
-    {
-        $this->instances[] = ['template' => $this->getInstanceTemplate(), 'class' => $this->getInstanceClass()];
-    }
-
-    /**
-     * Load
-     *
-     * Load each controller class instance
-     */
-    protected function load()
-    {
-        foreach ($this->files as $filename => $file) {
-            $this->instance = $file;
-            if (!$this->isInstance()) continue;
-            include_once $filename;
-            $this->setInstance();
-        }
-    }
-
-    /**
-     * Controllers
-     *
-     * Return instances from the controller files
-     * @return array
-     */
-    public function controllers()
-    {
-        return $this->instances;
+        $path = pathinfo($this->instance, PATHINFO_EXTENSION);
+        return (in_array($path, $extensions));
     }
 }
