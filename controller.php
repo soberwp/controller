@@ -31,7 +31,7 @@ require(file_exists($composer = __DIR__ . '/vendor/autoload.php') ? $composer : 
  */
 function controllers()
 {
-    $controllers = (new Controller())->get();
+    $controllers = (new Loader())->get();
     foreach ($controllers as $controller) {
         foreach ($controller['template'] as $route) {
             add_filter('sage/template/' . $route . '/data', function ($data) use ($controller) {
