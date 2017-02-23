@@ -72,8 +72,10 @@ class Loader
      * @return string
      */
     protected function getInstanceClass()
-    {
-        return '\\' . end(get_declared_classes());
+    {   
+        $class = get_declared_classes();
+        $class = '\\' . end($class);
+        return $class;
     }
 
     /**
