@@ -62,7 +62,7 @@ class Controller
     {
         $this->template = (is_array($this->template) ? $this->template : array($this->template));
         if (in_array('all', $this->template)) {
-            $this->template[] = 'base';
+            $this->template[] = 'base-controller';
         }
     }
 

@@ -34,7 +34,7 @@ function controllers()
     $controllers = (new Loader())->get();
     foreach ($controllers as $controller) {
         foreach ($controller['template'] as $route) {
-            add_filter('sage/template/' . $route . '/data', function ($data) use ($controller) {
+            add_filter('sage/template/' . $route . '-controller/data', function ($data) use ($controller) {
                 return (new $controller['class'])->__controller();
             });
         }

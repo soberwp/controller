@@ -15,7 +15,7 @@ class Loader
 
         if (!file_exists($this->path)) return;
 
-        $this->addBaseClass();
+        $this->addControllerClasses();
         $this->getFiles();
         $this->load();
     }
@@ -41,15 +41,22 @@ class Loader
     }
 
     /**
-     * Add Base Class
+     * Add Controller Class
      *
-     * Add the required global body class
+     * Add the required body classes
      * @return string
      */
-    protected function addBaseClass()
+    protected function addControllerClasses()
     {
-        add_filter('body_class', function ($classes) {
-            return array_merge($classes, ['base']);
+        add_filter('body_class', function ($body_classes) {
+            global $template;
+            global $post;
+
+            $classes[] = 'base-controller';
+            if (is_singular($post)) $classes[] = 'singular-controller';
+            $classes[] = str_replace('.blade.php', '-controller', basename($template));
+ 
+            return array_merge($body_classes, $classes);
         });
     }
 
