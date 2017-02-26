@@ -53,7 +53,7 @@ The controller will autoload PHP files within the above path and its subdirector
 
 The following example will expose `$images` to `templates/single.blade.php`
 
-**[controllers/single.php](.github/controllers/single.php)**
+**controllers/single.php**
 
 ```php
 <?php
@@ -84,7 +84,7 @@ class Single extends Controller
 }
 ```
 
-**[templates/single.blade.php](.github/templates/single.blade.php)**
+**templates/single.blade.php**
 
 ```php
 @if($images)
@@ -100,7 +100,7 @@ class Single extends Controller
 
 By default, the controller matches the template filename&mdash;but you can also create reusable components and include them each view.
 
-**[controllers/partials/images.php](.github/controllers/partials/images.php)**
+**controllers/partials/images.php**
 
 ```php
 <?php
@@ -117,6 +117,8 @@ trait Images
 ```
 
 You can now include the Images trait into any view to pass on variable $images; 
+
+**controllers/single.php**
 
 ```php
 <?php
@@ -138,6 +140,8 @@ By default, Controller overrides it's template heirarchy.
 You can inherit the WordPress heirarchy Controllers by implementing the Tree. 
 
 The following `controllers/single.php` example will inherit methods from `controllers/singular.php`;
+
+**controllers/single.php**
 
 ```php
 <?php
@@ -162,6 +166,8 @@ You can override a `controllers/singular.php` method by declaring the same metho
 
 Methods created in `controllers/base.php` will be inherited by all views and can not be disabled as all templates extend `templates/layouts/base.php`. 
 
+**controllers/base.php**
+
 ```php
 <?php
 
@@ -181,10 +187,7 @@ class Base extends Controller
 #### Disable Option;
 
 ```php
-class Images extends Controller
-{
-    public $active = false;
-}
+public $active = false;
 ```
 
 #### Blade Debugging;
