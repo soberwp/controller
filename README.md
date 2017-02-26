@@ -135,7 +135,7 @@ class Single extends Controller
 
 #### Inheriting the Tree/Heirarchy;
 
-By default, Controller overrides it's template heirarchy.
+By default, each Controller overrides the template heirarchy.
 
 You can inherit the WordPress heirarchy Controllers by implementing the Tree. 
 
