@@ -43,10 +43,10 @@ The controller will autoload PHP files within the above path and its subdirector
 * Name the Controller file the same name as the template file.
 * Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
 * Create methods within the Controller Class;
-    * Use `public static function` to expose the returned values to the blade template/s. 
+    * Use `public static function` to expose the returned values to the Blade template/s. 
     * Use `protected static function` for internal controller methods as only public methods are exposed to the template.
-* Return a value from the public methods which will be passed onto the blade template.
-    * **Important:** The method name is converted to snake case and becomes the variable name in the blade template.
+* Return a value from the public methods which will be passed onto the Blade template.
+    * **Important:** The method name is converted to snake case and becomes the variable name in the Blade template.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
 
 #### Examples: 
