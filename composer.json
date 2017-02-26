@@ -29,7 +29,6 @@
   "autoload": {
     "psr-4": {
       "Sober\\Controller\\": "src/",
-      "Sober\\Controller\\Loader\\": "src/Loader/",
       "Sober\\Controller\\Module\\": "src/Module/"
     }
   },

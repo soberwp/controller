@@ -15,88 +15,50 @@ class Loader
 
         if (!file_exists($this->path)) return;
 
-        $this->addControllerClasses();
-        $this->getFiles();
-        $this->load();
+        $this->setDocumentClasses();
+        $this->setFileList();
+
+        $this->includeTraits();
+        $this->includeClasses();
     }
 
     /**
      * Set Path
      *
-     * Set the path for the controller files
+     * Set the default path or get the custom path
      */
     protected function setPath()
     {
-        $this->path = (has_filter('sober/controller/path') ?  apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/controllers');
+        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/controllers');
     }
 
     /**
-     * Get Files
+     * Set File List
      *
-     * Set the list of files
+     * Recursively get file list and place into array
      */
-    protected function getFiles()
+    protected function setFileList()
     {
         $this->files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
     }
 
     /**
-     * Add Controller Class
+     * Set Classes to Body
      *
-     * Add the required body classes
      * @return string
      */
-    protected function addControllerClasses()
+    protected function setDocumentClasses()
     {
-        add_filter('body_class', function ($body_classes) {
+        add_filter('body_class', function ($body) {
             global $template;
             global $post;
-
             $classes[] = 'base-controller';
-            if (is_singular($post)) $classes[] = 'singular-controller';
+            if (is_singular($post)) {
+                $classes[] = 'singular-controller';
+            }
             $classes[] = str_replace('.blade.php', '-controller', basename($template));
- 
-            return array_merge($body_classes, $classes);
+            return array_merge($body, $classes);
         });
-    }
-
-    /**
-     * Is File Extension
-     *
-     * Check if the file extension is PHP
-     * @return boolean
-     */
-    protected function isFileExtension($extensions)
-    {
-        $path = pathinfo($this->instance, PATHINFO_EXTENSION);
-        return (in_array($path, $extensions));
-    }
-
-    /**
-     * Get Instance Class
-     *
-     * Return the class of the instance
-     * @return string
-     */
-    protected function getInstanceClass()
-    {   
-        $class = get_declared_classes();
-        $class = '\\' . end($class);
-        return $class;
-    }
-
-    /**
-     * Get Instance Template
-     *
-     * Return the template of the instance
-     * @return string
-     */
-    protected function getInstanceTemplate()
-    {
-        $class = $this->getInstanceClass();
-        $result = (new $class())->template; // returns array
-        $path = pathinfo($this->instance->getFileName(), PATHINFO_FILENAME);
-        return ($result[0] ? $result : array($path));
     }
 
     /**
@@ -106,34 +68,81 @@ class Loader
      */
     protected function setInstance()
     {
-        $this->instances[] = ['template' => $this->getInstanceTemplate(), 'class' => $this->getInstanceClass()];
+        $class = get_declared_classes();
+        $class = '\\' . end($class);
+        $template = pathinfo($this->instance, PATHINFO_FILENAME);
+        $this->instances[$template] = $class;
     }
 
     /**
-     * Load
+     * Is File
      *
-     * Load each controller class instance
+     * Determine if the file is a PHP file (excludes directories)
+     * @return boolean
      */
-    protected function load()
+    protected function isFile()
+    {
+        return (in_array(pathinfo($this->instance, PATHINFO_EXTENSION), ['php']));
+    }
+
+    /**
+     * Is File Class
+     *
+     * Determine if the file is a Controller Class
+     * @return boolean
+     */
+    protected function isFileClass()
+    {
+       return (strstr(file_get_contents($this->instance), "extends Controller") ? true : false);
+    }
+
+    /**
+     * Return Base Data
+     *
+     * @return array
+     */
+    public function getBaseData()
+    {
+        return (new $this->instances['base']())->__getData();
+    }
+
+    /**
+     * Return Data
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->instances;
+    }
+
+
+    /**
+     * Traits Loader
+     *
+     * Load each Trait instance
+     */
+    protected function includeTraits()
     {
         foreach ($this->files as $filename => $file) {
-            $this->instance = $file;
-
-            if (!$this->isFileExtension(['php'])) continue;
-
+            $this->instance = $filename;
+            if (!$this->isFile() || $this->isFileClass()) continue;
             include_once $filename;
-            $this->setInstance();
         }
     }
 
     /**
-     * Get
+     * Classes Loader
      *
-     * Return instances from the controller files
-     * @return array
+     * Load each Class instance
      */
-    public function get()
+    protected function includeClasses()
     {
-        return $this->instances;
+        foreach ($this->files as $filename => $file) {
+            $this->instance = $filename;
+            if (!$this->isFile() || !$this->isFileClass()) continue;
+            include_once $filename;
+            $this->setInstance();
+        }
     }
 }

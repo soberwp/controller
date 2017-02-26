@@ -4,14 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
+class ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Component\\Yaml\\' => 23,
             'Sober\\Controller\\Module\\' => 24,
-            'Sober\\Controller\\Loader\\' => 24,
             'Sober\\Controller\\' => 17,
         ),
         'N' => 
@@ -32,10 +31,6 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
         'Sober\\Controller\\Module\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Module',
-        ),
-        'Sober\\Controller\\Loader\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/Loader',
         ),
         'Sober\\Controller\\' => 
         array (
@@ -140,11 +135,11 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
         'Noodlehaus\\FileParser\\Php' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Php.php',
         'Noodlehaus\\FileParser\\Xml' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Xml.php',
         'Noodlehaus\\FileParser\\Yaml' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Yaml.php',
-        'Sober\\Controller\\ConfigNoFile' => __DIR__ . '/../..' . '/src/ConfigNoFile.php',
         'Sober\\Controller\\Controller' => __DIR__ . '/../..' . '/src/Controller.php',
         'Sober\\Controller\\Loader' => __DIR__ . '/../..' . '/src/Loader.php',
-        'Sober\\Controller\\Loader\\Controller' => __DIR__ . '/../..' . '/src/Loader/Controller.php',
+        'Sober\\Controller\\Module\\Config' => __DIR__ . '/../..' . '/src/Module/Config.php',
         'Sober\\Controller\\Module\\Debugger' => __DIR__ . '/../..' . '/src/Module/Debugger.php',
+        'Sober\\Controller\\Tree' => __DIR__ . '/../..' . '/src/Tree.php',
         'Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
         'Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
         'Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
@@ -161,9 +156,9 @@ class ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitde7045ac8d32b0d655e5c7ad1f48d0d7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$classMap;
 
         }, null, ClassLoader::class);
     }

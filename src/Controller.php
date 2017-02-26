@@ -4,40 +4,49 @@ namespace Sober\Controller;
 
 class Controller
 {
-    private $data = [];
-    private $methods;
-    private $exclude;
-
     public $active = true;
-    public $template = false;
+
+    private $class;
+    private $methods;
+    private $data = [];
 
     public function __construct()
     {
+        $this->__setClass();
         $this->__setMethods();
-        $this->__setControllerMethods();
-        $this->__sanitizeTemplate();
-        $this->__tasks();
+        $this->__runMethods();
+    }
+
+    /**
+     * Set Class
+     *
+     * Create a ReflectionClass object for this instance
+     */
+    private function __setClass()
+    {
+        $this->class = new \ReflectionClass($this);
     }
 
     /**
      * Set Methods
      *
-     * Set the Class methods
+     * Set all Class public methods for this instance
      */
     private function __setMethods()
     {
-        $class = new \ReflectionClass($this);
-        $this->methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $this->methods = $this->class->getMethods(\ReflectionMethod::IS_PUBLIC);
     }
 
     /**
-     * Set Controller Methods
+     * Set Tree Data
      *
-     * Set the parent controller methods
+     * @return array
      */
-    private function __setControllerMethods()
-    {
-        $this->exclude = get_class_methods(__CLASS__);
+    public function __setTreeData($data) {
+        if (!$this->class->implementsInterface('\Sober\Controller\Tree')) {
+            $data = [];
+        }
+        return $data;
     }
 
     /**
@@ -48,22 +57,7 @@ class Controller
      */
     private function __isControllerMethod($method)
     {
-        if (in_array($method->name, $this->exclude)) {
-            return true;
-        }
-    }
-
-    /**
-     * Sanitize Template
-     *
-     * Check for all string and add base for global
-     */
-    private function __sanitizeTemplate()
-    {
-        $this->template = (is_array($this->template) ? $this->template : array($this->template));
-        if (in_array('all', $this->template)) {
-            $this->template[] = 'base-controller';
-        }
+        return (in_array($method->name, get_class_methods(__CLASS__)));
     }
 
     /**
@@ -78,11 +72,11 @@ class Controller
     }
 
     /**
-     * Tasks
+     * Run Methods
      *
-     * Run each of the extended class public methods
+     * Run each of the child class public methods
      */
-    private function __tasks()
+    private function __runMethods()
     {
         foreach ($this->methods as $method) {
             if ($this->__isControllerMethod($method)) continue;
@@ -91,12 +85,12 @@ class Controller
     }
 
     /**
-     * Controller
+     * Returns Data
      *
      * Set the class methods to be run
      * @return array
      */
-    public function __controller()
+    public function __getData()
     {
         return ($this->active ? $this->data : array());
     }

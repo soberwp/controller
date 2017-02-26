@@ -3,7 +3,7 @@
 Plugin Name:        Controller
 Plugin URI:         http://github.com/soberwp/controller
 Description:        WordPress plugin to enable a basic controller when using Blade with Sage 9
-Version:            1.0.0-alpha3
+Version:            1.0.0-alpha7
 Author:             Sober
 Author URI:         http://github.com/soberwp/
 License:            MIT License
@@ -13,9 +13,6 @@ GitHub Branch:      master
 */
 
 namespace Sober\Controller;
-
-use Sober\Controller\Loader\Config;
-use Sober\Controller\Loader\Controller;
 
 /**
  * Plugin
@@ -29,15 +26,14 @@ require(file_exists($composer = __DIR__ . '/vendor/autoload.php') ? $composer : 
 /**
  * Functions
  */
-function controllers()
+function loader()
 {
-    $controllers = (new Loader())->get();
-    foreach ($controllers as $controller) {
-        foreach ($controller['template'] as $route) {
-            add_filter('sage/template/' . $route . '-controller/data', function ($data) use ($controller) {
-                return (new $controller['class'])->__controller();
-            });
-        }
+    $loader = new Loader();
+    foreach ($loader->getData() as $template => $class) {
+        add_filter('sage/template/' . $template . '-controller/data', function ($data) use ($loader, $class) {
+            $controller = new $class();
+            return array_merge($loader->getBaseData(), $controller->__setTreeData($data), $controller->__getData());
+        });
     }
 }
 
@@ -52,5 +48,5 @@ function debugger()
 /**
  * Hooks
  */
-add_action('init', __NAMESPACE__ . '\controllers');
+add_action('init', __NAMESPACE__ . '\loader');
 add_action('init', __NAMESPACE__ . '\debugger');

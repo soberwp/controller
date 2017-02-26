@@ -24,7 +24,7 @@ $ wp plugin activate controller
 
 ## Setup
 
-By default, create folder `controllers/` within your active theme directory. 
+By default, create folder `controllers/` within your theme directory. 
 
 Alternatively, you can define a custom path using the filter below within your themes `functions.php` file; 
 ```php
@@ -38,17 +38,18 @@ The controller will autoload PHP files within the above path and its subdirector
 
 ## Usage
 
-#### Creating a Controller:
+#### Creating a basic Controller:
 
-* Name the Controller file the same name as the template file or [override the `$template` variable.](#option-template)
-* Extend the Controller Class&mdash;the class name does not have to match the template name.
+* Name the Controller file the same name as the template file.
+* Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
 * Create methods within the Controller Class;
     * Use `public static function` to expose the returned values to the blade template/s. 
     * Use `protected static function` for internal controller methods as only public methods are exposed to the template.
 * Return a value from the public methods which will be passed onto the blade template.
-    * **Important:** the method name is converted to snake case and becomes the variable name in the blade template.
+    * **Important:** The method name is converted to snake case and becomes the variable name in the blade template.
+    * **Important:** If the same method name is declared twice, the latest instance will override the previous.
 
-#### Example: 
+#### Examples: 
 
 The following example will expose `$images` to `templates/single.blade.php`
 
@@ -95,26 +96,27 @@ class Single extends Controller
 @endif
 ```
 
-<a name="option-template"></a>
+#### Creating Components;
 
-#### Template Option:
+By default, the controller matches the template filename&mdash;but you can also create reusable components and include them each view.
 
-By default, the controller matches the template filename&mdash;but you can override the template to target by using; 
+**[controllers/partials/images.php](.github/controllers/partials/images.php)**
 
-* To expose to single template; 
-    * `public $template = 'single;`
+```php
+<?php
 
-* To expose to multiple templates; 
-    * `public $template = ['single', 'page'];`
+namespace App;
 
-* To expose to all templates; 
-    * `public $template = 'all';`
+trait Images
+{
+    public function images()
+    {
+        return get_field('images');
+    }
+}
+```
 
-This allows you to create controllers based around components rather than per template.
-
-The following example will expose `$images` to both `templates/single.blade.php` and `templates/page.blade.php`
-
-**[controllers/images.php](.github/controllers/images.php)**
+You can now include the Images trait into any view to pass on variable $images; 
 
 ```php
 <?php
@@ -123,18 +125,55 @@ namespace App;
 
 use Sober\Controller\Controller;
 
-class Images extends Controller
+class Single extends Controller
 {
-    public $template = ['single', 'page'];
+    use Images;
+}
+```
 
-    /**
-     * Return images from Advanced Custom Fields
-     *
-     * @return array
-     */
-    public function images()
+#### Inheriting the Tree/Heirarchy;
+
+By default, Controller overrides it's template heirarchy.
+
+You can inherit the WordPress heirarchy Controllers by implementing the Tree. 
+
+The following `controllers/single.php` example will inherit methods from `controllers/singular.php`;
+
+```php
+<?php
+
+namespace App;
+
+use Sober\Controller\Controller;
+use Sober\Controller\Tree;
+
+class Single extends Controller implements Tree
+{
+    public function books()
     {
-        return get_field('images');
+        return array(1,2,3,4,5,6);
+    }
+}
+```
+
+You can override a `controllers/singular.php` method by declaring the same method name in `controllers/single.php`;
+
+#### Creating Global Properties;
+
+Methods created in `controllers/base.php` will be inherited by all views and can not be disabled as all templates extend `templates/layouts/base.php`. 
+
+```php
+<?php
+
+namespace App;
+
+use Sober\Controller\Controller;
+
+class Base extends Controller
+{
+    public function siteName()
+    {
+        return get_bloginfo('name');
     }
 }
 ```
@@ -148,9 +187,9 @@ class Images extends Controller
 }
 ```
 
-#### Blade Directives;
+#### Blade Debugging;
 
-For debugging purposes;
+In your Blade templates, you can use the following to assist with debugging;
 
 * `@debug('controller')` echos a list of variables available in the template.
 * `@debug('dump')` var_dumps a list of variables available in the template, including `$post`.

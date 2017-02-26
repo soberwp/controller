@@ -33,12 +33,11 @@ class Debugger
     public function route()
     {
         if ($this->type === 'dump') $this->dump();
-        if ($this->type === 'config') $this->config();
         if ($this->type === 'controller') $this->controller();
     }
 
     /**
-     * Dump
+     * Debug Dump
      *
      * Return var_dump of data
      */
@@ -48,17 +47,7 @@ class Debugger
     }
 
     /**
-     * Config
-     *
-     * Return list of keys and values from data
-     */
-    public function config()
-    {
-        var_dump($this->data['_config']);
-    }
-
-    /**
-     * Controller
+     * Debug Controller
      *
      * Return list of keys from data
      */

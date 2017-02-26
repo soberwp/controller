@@ -1,2 +1,2 @@
-### 1.0.0-alpha1: 17th February 2017
-* Release Controller
+### 1.0.0-alpha/s: 
+* Please note that breaking changes will occur throughout alpha.
