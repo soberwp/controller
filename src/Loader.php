@@ -106,7 +106,10 @@ class Loader
      */
     public function getBaseData()
     {
-        return (new $this->instances['base']())->__getData();
+        if (array_key_exists('base', $this->instances)) {
+            return (new $this->instances['base']())->__getData();
+        }
+        return array();
     }
 
     /**
