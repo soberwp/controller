@@ -22,6 +22,9 @@
         <fileset dir="vendor">
             <include name="autoload.php"></include>
             <include name="composer/**.php"></include>
+            <include name="hassankhan/**/**.php"></include>
+            <include name="symfony/yaml/**.php"></include>
+            <include name="brain/**/**.php"></include>
         </fileset>
     </copy>
   </target>

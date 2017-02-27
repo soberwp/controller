@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2
+class ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -20,6 +20,10 @@ class ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
+        ),
+        'B' => 
+        array (
+            'Brain\\Hierarchy\\' => 16,
         ),
     );
 
@@ -44,9 +48,47 @@ class ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
+        'Brain\\Hierarchy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brain/hierarchy/src',
+        ),
     );
 
     public static $classMap = array (
+        'Brain\\Hierarchy\\Branch\\Branch404' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/Branch404.php',
+        'Brain\\Hierarchy\\Branch\\BranchArchive' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchArchive.php',
+        'Brain\\Hierarchy\\Branch\\BranchAttachment' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchAttachment.php',
+        'Brain\\Hierarchy\\Branch\\BranchAuthor' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchAuthor.php',
+        'Brain\\Hierarchy\\Branch\\BranchCategory' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchCategory.php',
+        'Brain\\Hierarchy\\Branch\\BranchDate' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchDate.php',
+        'Brain\\Hierarchy\\Branch\\BranchEmbed' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchEmbed.php',
+        'Brain\\Hierarchy\\Branch\\BranchFrontPage' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchFrontPage.php',
+        'Brain\\Hierarchy\\Branch\\BranchHome' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchHome.php',
+        'Brain\\Hierarchy\\Branch\\BranchInterface' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchInterface.php',
+        'Brain\\Hierarchy\\Branch\\BranchPage' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchPage.php',
+        'Brain\\Hierarchy\\Branch\\BranchPaged' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchPaged.php',
+        'Brain\\Hierarchy\\Branch\\BranchPostTypeArchive' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchPostTypeArchive.php',
+        'Brain\\Hierarchy\\Branch\\BranchSearch' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchSearch.php',
+        'Brain\\Hierarchy\\Branch\\BranchSingle' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchSingle.php',
+        'Brain\\Hierarchy\\Branch\\BranchSingular' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchSingular.php',
+        'Brain\\Hierarchy\\Branch\\BranchTag' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchTag.php',
+        'Brain\\Hierarchy\\Branch\\BranchTaxonomy' => __DIR__ . '/..' . '/brain/hierarchy/src/Branch/BranchTaxonomy.php',
+        'Brain\\Hierarchy\\FileExtensionPredicate' => __DIR__ . '/..' . '/brain/hierarchy/src/FileExtensionPredicate.php',
+        'Brain\\Hierarchy\\Finder\\CallbackTemplateFinder' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/CallbackTemplateFinder.php',
+        'Brain\\Hierarchy\\Finder\\FindFirstTemplateTrait' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/FindFirstTemplateTrait.php',
+        'Brain\\Hierarchy\\Finder\\FoldersTemplateFinder' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/FoldersTemplateFinder.php',
+        'Brain\\Hierarchy\\Finder\\LocalizedTemplateFinder' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/LocalizedTemplateFinder.php',
+        'Brain\\Hierarchy\\Finder\\SubfolderTemplateFinder' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/SubfolderTemplateFinder.php',
+        'Brain\\Hierarchy\\Finder\\SymfonyFinderAdapter' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/SymfonyFinderAdapter.php',
+        'Brain\\Hierarchy\\Finder\\TemplateFinderInterface' => __DIR__ . '/..' . '/brain/hierarchy/src/Finder/TemplateFinderInterface.php',
+        'Brain\\Hierarchy\\Hierarchy' => __DIR__ . '/..' . '/brain/hierarchy/src/Hierarchy.php',
+        'Brain\\Hierarchy\\Loader\\AggregateTemplateLoaderInterface' => __DIR__ . '/..' . '/brain/hierarchy/src/Loader/AggregateTemplateLoaderInterface.php',
+        'Brain\\Hierarchy\\Loader\\CascadeAggregateTemplateLoader' => __DIR__ . '/..' . '/brain/hierarchy/src/Loader/CascadeAggregateTemplateLoader.php',
+        'Brain\\Hierarchy\\Loader\\ExtensionMapTemplateLoader' => __DIR__ . '/..' . '/brain/hierarchy/src/Loader/ExtensionMapTemplateLoader.php',
+        'Brain\\Hierarchy\\Loader\\FileRequireLoader' => __DIR__ . '/..' . '/brain/hierarchy/src/Loader/FileRequireLoader.php',
+        'Brain\\Hierarchy\\Loader\\TemplateLoaderInterface' => __DIR__ . '/..' . '/brain/hierarchy/src/Loader/TemplateLoaderInterface.php',
+        'Brain\\Hierarchy\\QueryTemplate' => __DIR__ . '/..' . '/brain/hierarchy/src/QueryTemplate.php',
+        'Brain\\Hierarchy\\QueryTemplateInterface' => __DIR__ . '/..' . '/brain/hierarchy/src/QueryTemplateInterface.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -156,9 +198,9 @@ class ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6bce6b38724c4785d1ca89452628c1a2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$classMap;
 
         }, null, ClassLoader::class);
     }

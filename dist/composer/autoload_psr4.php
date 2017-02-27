@@ -11,4 +11,5 @@ return array(
     'Sober\\Controller\\' => array($baseDir . '/src'),
     'Noodlehaus\\' => array($vendorDir . '/hassankhan/config/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
+    'Brain\\Hierarchy\\' => array($vendorDir . '/brain/hierarchy/src'),
 );
