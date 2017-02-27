@@ -40,7 +40,8 @@ The controller will autoload PHP files within the above path and its subdirector
 
 #### Creating a basic Controller:
 
-* Name the Controller file the same name as the template file.
+* Controller files follow the same hierarchy as WordPress.
+    * You can view the hierarchy by inspecting a pages body *-data classes.
 * Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
 * Create methods within the Controller Class;
     * Use `public static function` to expose the returned values to the Blade template/s. 
