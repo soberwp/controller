@@ -41,7 +41,7 @@ The controller will autoload PHP files within the above path and its subdirector
 #### Creating a basic Controller:
 
 * Controller files follow the same hierarchy as WordPress.
-    * You can view the hierarchy by inspecting a pages body *-data classes.
+    * You can view the controller hierarchy by using the Blade directive `@debug('hierarchy')` on any template or inspecting body classes ending with *-data.
 * Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
 * Create methods within the Controller Class;
     * Use `public static function` to expose the returned values to the Blade template/s. 
@@ -195,6 +195,7 @@ public $active = false;
 
 In your Blade templates, you can use the following to assist with debugging;
 
+* `@debug('hierarchy')` echos a list of the controller hierarchy for the current page.
 * `@debug('controller')` echos a list of variables available in the template.
 * `@debug('dump')` var_dumps a list of variables available in the template, including `$post`.
 
