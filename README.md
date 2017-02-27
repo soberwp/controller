@@ -136,11 +136,11 @@ class Single extends Controller
 
 #### Inheriting the Tree/Heirarchy;
 
-By default, each Controller overrides the template heirarchy.
+By default, each Controller overrides its template heirarchy depending on specificity.
 
-You can inherit the WordPress heirarchy Controllers by implementing the Tree. 
+You can inherit the Controllers in the heirarchy by implementing the Tree. 
 
-The following `controllers/single.php` example will inherit methods from `controllers/singular.php`;
+For example, the following `controllers/single.php` example will inherit methods from `controllers/singular.php`;
 
 **controllers/single.php**
 
@@ -195,7 +195,7 @@ public $active = false;
 
 In your Blade templates, you can use the following to assist with debugging;
 
-* `@debug('hierarchy')` echos a list of the controller hierarchy for the current page.
+* `@debug('hierarchy')` echos a list of the controller hierarchy for the current template.
 * `@debug('controller')` echos a list of variables available in the template.
 * `@debug('dump')` var_dumps a list of variables available in the template, including `$post`.
 
