@@ -165,7 +165,7 @@ You can override a `src/controllers/singular.php` method by declaring the same m
 
 #### Creating Global Properties;
 
-Methods created in `src/controllers/base.php` will be inherited by all views and can not be disabled as all templates extend `templates/layouts/base.php`. 
+Methods created in `src/controllers/base.php` will be inherited by all templates and can not be disabled as `templates/layouts/base.php` extends all templates. 
 
 **src/controllers/base.php**
 
