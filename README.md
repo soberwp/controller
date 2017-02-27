@@ -99,7 +99,7 @@ class Single extends Controller
 
 #### Creating Components;
 
-By default, the controller matches the template filename&mdash;but you can also create reusable components and include them in each view.
+You can also create reusable components and include them in a template using PHP traits.
 
 **src/controllers/partials/images.php**
 
@@ -117,7 +117,7 @@ trait Images
 }
 ```
 
-You can now include the Images trait into any view to pass on variable $images; 
+You can now include the Images trait into any template to pass on variable $images; 
 
 **src/controllers/single.php**
 
@@ -136,9 +136,9 @@ class Single extends Controller
 
 #### Inheriting the Tree/Heirarchy;
 
-By default, each Controller overrides its template heirarchy depending on specificity.
+By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
 
-You can inherit the Controllers in the heirarchy by implementing the Tree. 
+You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree. 
 
 For example, the following `src/controllers/single.php` example will inherit methods from `src/controllers/singular.php`;
 
