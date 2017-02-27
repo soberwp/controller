@@ -140,7 +140,7 @@ By default, each Controller overrides its template heirarchy depending on specif
 
 You can inherit the Controllers in the heirarchy by implementing the Tree. 
 
-For example, the following `controllers/single.php` example will inherit methods from `controllers/singular.php`;
+For example, the following `src/controllers/single.php` example will inherit methods from `src/controllers/singular.php`;
 
 **src/controllers/single.php**
 
@@ -161,11 +161,11 @@ class Single extends Controller implements Tree
 }
 ```
 
-You can override a `controllers/singular.php` method by declaring the same method name in `controllers/single.php`;
+You can override a `src/controllers/singular.php` method by declaring the same method name in `src/controllers/single.php`;
 
 #### Creating Global Properties;
 
-Methods created in `controllers/base.php` will be inherited by all views and can not be disabled as all templates extend `templates/layouts/base.php`. 
+Methods created in `src/controllers/base.php` will be inherited by all views and can not be disabled as all templates extend `templates/layouts/base.php`. 
 
 **src/controllers/base.php**
 
