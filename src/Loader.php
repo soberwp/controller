@@ -29,7 +29,7 @@ class Loader
      */
     protected function setPath()
     {
-        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/controllers');
+        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/src/controllers');
     }
 
     /**
