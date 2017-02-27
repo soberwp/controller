@@ -99,7 +99,7 @@ class Single extends Controller
 
 #### Creating Components;
 
-By default, the controller matches the template filename&mdash;but you can also create reusable components and include them each view.
+By default, the controller matches the template filename&mdash;but you can also create reusable components and include them in each view.
 
 **src/controllers/partials/images.php**
 
