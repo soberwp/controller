@@ -14,7 +14,7 @@ $ wp plugin activate controller
 
 #### Manual:
 
-* Download the [zip file](https://github.com/soberwp/models/archive/master.zip)
+* Download the [zip file](https://github.com/soberwp/controller/archive/master.zip)
 * Unzip to your sites plugin folder
 * Activate via WordPress
 
