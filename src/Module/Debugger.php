@@ -72,10 +72,10 @@ class Debugger
     {
         global $wp_query;
         $templates = (new \Brain\Hierarchy\Hierarchy())->getTemplates($wp_query);
+        $templates[] = 'base.php';
         $templates = array_reverse($templates);
         $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : get_stylesheet_directory() . '/src/controllers');
         $path = str_replace(get_stylesheet_directory(), '' , $path);
-
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
         foreach ($templates as $template) {
             if (strpos($template, '.blade.php') || $template === 'index') continue;

@@ -50,16 +50,16 @@ class Loader
     protected function setDocumentClasses()
     {
         add_filter('body_class', function ($body) {
-
             global $wp_query;
             $templates = (new \Brain\Hierarchy\Hierarchy())->getTemplates($wp_query);
             $templates = array_reverse($templates);
+            $classes[] = 'base-data';
 
             foreach ($templates as $template) {
                 if (strpos($template, '.blade.php') || $template === 'index') continue;
                 $classes[] = str_replace('.php', '-data', $template);
             }
-
+            
             return array_merge($body, $classes);
         });
     }
