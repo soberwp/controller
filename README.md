@@ -66,14 +66,6 @@ use Sober\Controller\Controller;
 class Single extends Controller
 {
     /**
-     * Protected methods will not be passed to the template
-     */
-    protected function hidden()
-    {
-        
-    }
-
-    /**
      * Return images from Advanced Custom Fields
      *
      * @return array
