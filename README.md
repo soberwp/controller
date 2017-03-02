@@ -8,7 +8,7 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
 ```shell
-$ composer require soberwp/controller
+$ composer require "soberwp/controller:1.0.0-beta1.1"
 $ wp plugin activate controller
 ```
 
