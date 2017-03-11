@@ -32,9 +32,17 @@ class Debugger
      */
     public function route()
     {
-        if ($this->type === 'hierarchy') $this->hierarchy();
-        if ($this->type === 'dump') $this->dump();
-        if ($this->type === 'controller') $this->controller();
+        if ($this->type === 'hierarchy') {
+            $this->hierarchy();
+        }
+
+        if ($this->type === 'dump') {
+            $this->dump();
+        }
+
+        if ($this->type === 'controller') {
+            $this->controller();
+        }
     }
 
     /**
@@ -75,10 +83,12 @@ class Debugger
         $templates[] = 'base.php';
         $templates = array_reverse($templates);
         $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : get_stylesheet_directory() . '/src/controllers');
-        $path = str_replace(get_stylesheet_directory(), '' , $path);
+        $path = str_replace(get_stylesheet_directory(), '', $path);
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
         foreach ($templates as $template) {
-            if (strpos($template, '.blade.php') || $template === 'index') continue;
+            if (strpos($template, '.blade.php') || $template === 'index') {
+                continue;
+            }
             echo "<li>" . $path . '/' . $template . "</li>";
         }
         echo '</ul></pre>';

@@ -13,11 +13,12 @@ class Loader
     {
         $this->setPath();
 
-        if (!file_exists($this->path)) return;
+        if (!file_exists($this->path)) {
+            return;
+        }
 
         $this->setDocumentClasses();
         $this->setFileList();
-
         $this->includeTraits();
         $this->includeClasses();
     }
@@ -56,7 +57,9 @@ class Loader
             $classes[] = 'base-data';
 
             foreach ($templates as $template) {
-                if (strpos($template, '.blade.php') || $template === 'index') continue;
+                if (strpos($template, '.blade.php') || $template === 'index') {
+                    continue;
+                }
                 $classes[] = str_replace('.php', '-data', $template);
             }
             
@@ -74,6 +77,8 @@ class Loader
         $class = get_declared_classes();
         $class = '\\' . end($class);
         $template = pathinfo($this->instance, PATHINFO_FILENAME);
+        // Convert camel case to match template
+        $template = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $template));
         $this->instances[$template] = $class;
     }
 
@@ -96,7 +101,7 @@ class Loader
      */
     protected function isFileClass()
     {
-       return (strstr(file_get_contents($this->instance), "extends Controller") ? true : false);
+        return (strstr(file_get_contents($this->instance), "extends Controller") ? true : false);
     }
 
     /**
@@ -132,7 +137,9 @@ class Loader
     {
         foreach ($this->files as $filename => $file) {
             $this->instance = $filename;
-            if (!$this->isFile() || $this->isFileClass()) continue;
+            if (!$this->isFile() || $this->isFileClass()) {
+                continue;
+            }
             include_once $filename;
         }
     }
@@ -146,7 +153,9 @@ class Loader
     {
         foreach ($this->files as $filename => $file) {
             $this->instance = $filename;
-            if (!$this->isFile() || !$this->isFileClass()) continue;
+            if (!$this->isFile() || !$this->isFileClass()) {
+                continue;
+            }
             include_once $filename;
             $this->setInstance();
         }

@@ -4,7 +4,8 @@ namespace Sober\Controller;
 
 class Controller
 {
-    public $active = true;
+    protected $active = true;
+    protected $tree = false;
 
     private $class;
     private $methods;
@@ -42,8 +43,9 @@ class Controller
      *
      * @return array
      */
-    public function __setTreeData($data) {
-        if (!$this->class->implementsInterface('\Sober\Controller\Tree')) {
+    public function __setTreeData($data)
+    {
+        if (!$this->class->implementsInterface('\Sober\Controller\Module\Tree') && $this->tree === false) {
             $data = [];
         }
         return $data;
@@ -79,7 +81,9 @@ class Controller
     private function __runMethods()
     {
         foreach ($this->methods as $method) {
-            if ($this->__isControllerMethod($method)) continue;
+            if ($this->__isControllerMethod($method)) {
+                continue;
+            }
             $this->data[$this->__sanitizeMethod($method->name)] = $this->{$method->name}();
         }
     }

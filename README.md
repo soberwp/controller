@@ -8,7 +8,7 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
 ```shell
-$ composer require "soberwp/controller:1.0.0-beta1.2"
+$ composer require soberwp/controller
 $ wp plugin activate controller
 ```
 
@@ -52,9 +52,11 @@ The controller will autoload PHP files within the above path and its subdirector
 
 #### Examples: 
 
-The following example will expose `$images` to `templates/single.blade.php`
+The following example will expose `$images` to `templates/single.blade.php` 
 
 **src/controllers/single.php**
+
+**Note:** You can also use camel case for Controller class file names (eg. Single.php)
 
 ```php
 <?php
@@ -142,14 +144,26 @@ For example, the following `src/controllers/single.php` example will inherit met
 namespace App;
 
 use Sober\Controller\Controller;
-use Sober\Controller\Tree;
+use Sober\Controller\Module\Tree;
 
 class Single extends Controller implements Tree
 {
-    public function books()
-    {
-        return array(1,2,3,4,5,6);
-    }
+
+}
+```
+
+If you prefer you can also do this; 
+
+```php
+<?php
+
+namespace App;
+
+use Sober\Controller\Controller;
+
+class Single extends Controller
+{
+    protected $tree = true;
 }
 ```
 
@@ -180,7 +194,7 @@ class Base extends Controller
 #### Disable Option;
 
 ```php
-public $active = false;
+protected $active = false;
 ```
 
 #### Blade Debugging;
