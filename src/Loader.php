@@ -118,6 +118,19 @@ class Loader
     }
 
     /**
+     * Return Post Data
+     *
+     * @return array
+     */
+    public function getPostData()
+    {
+        if (is_singular()) {
+            return array('post' => get_post());
+        }
+        return array();
+    }
+
+    /**
      * Return Data
      *
      * @return array

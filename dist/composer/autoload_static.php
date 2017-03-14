@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974
+class ComposerStaticInitbd85dc5d1b1b947ae7afbf80e4f97684
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -179,9 +179,9 @@ class ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974
         'Noodlehaus\\FileParser\\Yaml' => __DIR__ . '/..' . '/hassankhan/config/src/FileParser/Yaml.php',
         'Sober\\Controller\\Controller' => __DIR__ . '/../..' . '/src/Controller.php',
         'Sober\\Controller\\Loader' => __DIR__ . '/../..' . '/src/Loader.php',
-        'Sober\\Controller\\Module\\Config' => __DIR__ . '/../..' . '/src/Module/Config.php',
         'Sober\\Controller\\Module\\Debugger' => __DIR__ . '/../..' . '/src/Module/Debugger.php',
-        'Sober\\Controller\\Tree' => __DIR__ . '/../..' . '/src/Tree.php',
+        'Sober\\Controller\\Module\\Parser' => __DIR__ . '/../..' . '/src/Module/Parser.php',
+        'Sober\\Controller\\Module\\Tree' => __DIR__ . '/../..' . '/src/Module/Tree.php',
         'Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
         'Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
         'Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
@@ -198,9 +198,9 @@ class ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit098903dfdf99d3d80ececf7e6fb15974::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbd85dc5d1b1b947ae7afbf80e4f97684::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbd85dc5d1b1b947ae7afbf80e4f97684::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbd85dc5d1b1b947ae7afbf80e4f97684::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -32,7 +32,7 @@ function loader()
     foreach ($loader->getData() as $template => $class) {
         add_filter('sage/template/' . $template . '-data/data', function ($data) use ($loader, $class) {
             $controller = new $class();
-            return array_merge($loader->getBaseData(), $controller->__setTreeData($data), $controller->__getData());
+            return array_merge($loader->getBaseData(), $loader->getPostData(), $controller->__setTreeData($data), $controller->__getData());
         });
     }
 }

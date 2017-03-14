@@ -62,7 +62,7 @@ class Debugger
      */
     public function controller()
     {
-        unset($this->data['post']);
+        // unset($this->data['post']);
         echo '<pre><strong>Controller Debugger:</strong><ul>';
         foreach ($this->data as $name => $item) {
             $item = (is_array($item) ? gettype($item) . '[' . count($item) . ']' : gettype($item));
