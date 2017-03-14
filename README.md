@@ -4,7 +4,7 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 ## Installation
 
-**Important:** If you're upgrading from beta to 1.0.0 and using use `Sober\Controller\Tree;` please change to `Sober\Controller\Module\Tree;`
+**Important:** If you're upgrading from beta to 1.0.1 and using use `Sober\Controller\Tree;` please change to `Sober\Controller\Module\Tree;`
 
 #### Composer:
 
@@ -211,7 +211,7 @@ In your Blade templates, you can use the following to assist with debugging;
 
 #### Composer:
 
-* Change the composer.json version to ^1.0.0**
+* Change the composer.json version to ^1.0.1**
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell
