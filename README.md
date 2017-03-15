@@ -163,7 +163,7 @@ class Archive extends Controller
 @section('content')
 
   @while (have_posts()) @php(the_post())
-    {{ \App\Archive::title() }}
+    {{ Archive::title() }}
   @endwhile
 
 @endsection
