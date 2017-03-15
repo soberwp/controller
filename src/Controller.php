@@ -63,6 +63,22 @@ class Controller
     }
 
     /**
+     * Is Static Method
+     *
+     * Return true if the method belongs to the parent class
+     * @return boolean
+     */
+    private function __isStaticMethod($method)
+    {
+        $excls = [];
+        $statics = $this->class->getMethods(\ReflectionMethod::IS_STATIC);
+        foreach ($statics as $static) {
+            $excls[] = $static->name;
+        }
+        return (in_array($method->name, $excls));
+    }
+
+    /**
      * Sanitize Method
      *
      * Change method name from camel case to snake case
@@ -81,7 +97,7 @@ class Controller
     private function __runMethods()
     {
         foreach ($this->methods as $method) {
-            if ($this->__isControllerMethod($method)) {
+            if ($this->__isControllerMethod($method) || $this->__isStaticMethod($method)) {
                 continue;
             }
             $this->data[$this->__sanitizeMethod($method->name)] = $this->{$method->name}();
