@@ -30,10 +30,13 @@ function loader()
 {
     $loader = new Loader();
     foreach ($loader->getData() as $template => $class) {
+        // Pass data filter
         add_filter('sage/template/' . $template . '-data/data', function ($data) use ($loader, $class) {
             $controller = new $class();
             return array_merge($loader->getBaseData(), $loader->getPostData(), $controller->__setTreeData($data), $controller->__getData());
         });
+        // Class alais
+        class_alias($class, (new \ReflectionClass($class))->getShortName());
     }
 }
 
