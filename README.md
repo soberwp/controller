@@ -4,7 +4,7 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 ## Installation
 
-**Important:** If you're upgrading from beta to 1.0.1 and using use `Sober\Controller\Tree;` please change to `Sober\Controller\Module\Tree;`
+**Important:** If you're upgrading from beta to 1.0.2 and using use `Sober\Controller\Tree;` please change to `Sober\Controller\Module\Tree;`
 
 #### Composer:
 
@@ -46,17 +46,18 @@ The controller will autoload PHP files within the above path and its subdirector
     * You can view the controller hierarchy by using the Blade directive `@debug('hierarchy')` on any template or inspecting body classes ending with *-data.
 * Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
 * Create methods within the Controller Class;
-    * Use `public static function` to expose the returned values to the Blade template/s. 
-    * Use `protected static function` for internal controller methods as only public methods are exposed to the template.
+    * Use `public function` to expose the returned values to the Blade template/s. 
+    * Use `protected function` for internal controller methods as only public methods are exposed to the template.
 * Return a value from the public methods which will be passed onto the Blade template.
     * **Important:** The method name is converted to snake case and becomes the variable name in the Blade template.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
+    * **Important:** Static methods are not passed on as variables, you will find out later.
 
 #### Examples: 
 
 The following example will expose `$images` to `templates/single.blade.php` 
 
-**src/controllers/single.php**
+**src/controllers/Single.php**
 
 **Note:** You can also use camel case for Controller class file names (eg. Single.php)
 
@@ -97,7 +98,7 @@ class Single extends Controller
 
 You can also create reusable components and include them in a template using PHP traits.
 
-**src/controllers/partials/images.php**
+**src/controllers/partials/Images.php**
 
 ```php
 <?php
@@ -115,7 +116,7 @@ trait Images
 
 You can now include the Images trait into any template to pass on variable $images; 
 
-**src/controllers/single.php**
+**src/controllers/Single.php**
 
 ```php
 <?php
@@ -130,6 +131,42 @@ class Single extends Controller
 }
 ```
 
+#### Using Static Methods;
+
+You can use static methods to return content from your controller.
+
+This is useful if you are within the loop and want to return data for each post item individually.
+
+**src/controllers/Archive.php**
+
+```php
+<?php
+
+namespace App;
+
+use Sober\Controller\Controller;
+
+class Archive extends Controller
+{
+    public static function title()
+    {
+        return get_post()->post_title;
+    }
+}
+```
+
+**templates/archive.php**
+
+```php
+@extends('layouts.base')
+
+@section('content')
+  @while (have_posts()) @php(the_post())
+    {{ \App\Archive::title() }}
+  @endwhile
+@endsection
+```
+
 #### Inheriting the Tree/Heirarchy;
 
 By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
@@ -138,7 +175,7 @@ You can inherit the data from less specific Controllers in the heirarchy by impl
 
 For example, the following `src/controllers/single.php` example will inherit methods from `src/controllers/singular.php`;
 
-**src/controllers/single.php**
+**src/controllers/Single.php**
 
 ```php
 <?php
@@ -175,7 +212,7 @@ You can override a `src/controllers/singular.php` method by declaring the same m
 
 Methods created in `src/controllers/base.php` will be inherited by all templates and can not be disabled as `templates/layouts/base.php` extends all templates. 
 
-**src/controllers/base.php**
+**src/controllers/Base.php**
 
 ```php
 <?php
@@ -211,7 +248,7 @@ In your Blade templates, you can use the following to assist with debugging;
 
 #### Composer:
 
-* Change the composer.json version to ^1.0.1**
+* Change the composer.json version to ^1.0.2**
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell
