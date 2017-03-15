@@ -51,7 +51,7 @@ The controller will autoload PHP files within the above path and its subdirector
 * Return a value from the public methods which will be passed onto the Blade template.
     * **Important:** The method name is converted to snake case and becomes the variable name in the Blade template.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
-    * **Important:** Static methods are not passed on as variables, you will find out later.
+    * **Important:** Static methods are not passed on as variables.
 
 #### Examples: 
 
