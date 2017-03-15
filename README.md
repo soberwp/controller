@@ -161,9 +161,11 @@ class Archive extends Controller
 @extends('layouts.base')
 
 @section('content')
+
   @while (have_posts()) @php(the_post())
     {{ \App\Archive::title() }}
   @endwhile
+
 @endsection
 ```
 
