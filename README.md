@@ -4,8 +4,6 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 ## Installation
 
-**Important:** If you're upgrading from beta to 1.0.2 and are using `Sober\Controller\Tree;` please change to `Sober\Controller\Module\Tree;`
-
 #### Composer:
 
 Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
