@@ -11,14 +11,14 @@ Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http
 If you are using Sage 9.0.0 from dev-master use: 
 
 ```shell
-$ composer require "soberwp/controller:dev-master"
+$ composer require soberwp/controller:dev-master
 $ wp plugin activate controller
 ```
 
 If you are using Sage 9.0.0-beta2 use: 
 
 ```shell
-$ composer require "soberwp/controller:9.0.0-beta2"
+$ composer require soberwp/controller:9.0.0-beta2
 $ wp plugin activate controller
 ```
 
