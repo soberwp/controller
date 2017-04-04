@@ -7,8 +7,18 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 #### Composer:
 
 Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
+
+If you are using Sage 9.0.0 from dev-master use: 
+
 ```shell
-$ composer require soberwp/controller
+$ composer require "soberwp/controller:dev-master"
+$ wp plugin activate controller
+```
+
+If you are using Sage 9.0.0-beta2 use: 
+
+```shell
+$ composer require "soberwp/controller:9.0.0-beta2"
 $ wp plugin activate controller
 ```
 
@@ -24,7 +34,9 @@ $ wp plugin activate controller
 
 ## Setup
 
-By default, create folder `src/controllers/` within your theme directory. 
+By default, create folder `resources/controllers/` within your theme directory. 
+
+Please note: If you're are using 9.0.0-beta2, the default folder is `src/controllers/`
 
 Alternatively, you can define a custom path using the filter below within your themes `functions.php` file; 
 ```php

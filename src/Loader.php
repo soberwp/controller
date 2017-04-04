@@ -30,7 +30,7 @@ class Loader
      */
     protected function setPath()
     {
-        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/src/controllers');
+        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : get_stylesheet_directory() . '/resources/controllers');
     }
 
     /**
@@ -54,7 +54,7 @@ class Loader
             global $wp_query;
             $templates = (new \Brain\Hierarchy\Hierarchy())->getTemplates($wp_query);
             $templates = array_reverse($templates);
-            $classes[] = 'base-data';
+            $classes[] = 'app-data';
 
             foreach ($templates as $template) {
                 if (strpos($template, '.blade.php') || $template === 'index') {
@@ -109,10 +109,10 @@ class Loader
      *
      * @return array
      */
-    public function getBaseData()
+    public function getAppData()
     {
-        if (array_key_exists('base', $this->instances)) {
-            return (new $this->instances['base']())->__getData();
+        if (array_key_exists('app', $this->instances)) {
+            return (new $this->instances['app']())->__getData();
         }
         return array();
     }
