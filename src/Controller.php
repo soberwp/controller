@@ -11,7 +11,7 @@ class Controller
     private $methods;
     private $data = [];
 
-    public function __construct()
+    public function __setup()
     {
         $this->__setClass();
         $this->__setMethods();
@@ -59,13 +59,15 @@ class Controller
      */
     private function __isControllerMethod($method)
     {
-        return (in_array($method->name, get_class_methods(__CLASS__)));
+        $excls = get_class_methods(__CLASS__);
+        $excls[] = '__construct';
+        return (in_array($method->name, $excls));
     }
 
     /**
      * Is Static Method
      *
-     * Return true if the method belongs to the parent class
+     * Return true if the method is static
      * @return boolean
      */
     private function __isStaticMethod($method)
@@ -92,7 +94,7 @@ class Controller
     /**
      * Run Methods
      *
-     * Run each of the child class public methods
+     * Run and convert each of the child class public methods
      */
     private function __runMethods()
     {

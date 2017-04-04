@@ -3,7 +3,7 @@
 Plugin Name:        Controller
 Plugin URI:         http://github.com/soberwp/controller
 Description:        WordPress plugin to enable a basic controller when using Blade with Sage 9
-Version:            1.0.2
+Version:            9.0.0-beta.2
 Author:             Sober
 Author URI:         http://github.com/soberwp/
 License:            MIT License
@@ -33,6 +33,7 @@ function loader()
         // Pass data filter
         add_filter('sage/template/' . $template . '-data/data', function ($data) use ($loader, $class) {
             $controller = new $class();
+            $controller->__setup();
             return array_merge($loader->getBaseData(), $loader->getPostData(), $controller->__setTreeData($data), $controller->__getData());
         });
         // Class alais
