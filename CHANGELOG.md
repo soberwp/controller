@@ -1,5 +1,10 @@
+### 9.0.0-master:
+* Fix for app Controller bug
+* Rename base to app
+* Change default path from src/controllers to resources/controllers
+
 ### 9.0.0-beta.2.1:
-* Fix for Base Controller bug
+* Fix for base Controller bug
 
 ### 9.0.0-beta.2:
 * Align with Sage9 versioning
