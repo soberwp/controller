@@ -164,7 +164,7 @@ class Archive extends Controller
 **resources/views/archive.php**
 
 ```php
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
 
