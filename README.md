@@ -256,7 +256,7 @@ In your Blade views, `resources/views`, you can use the following to assist with
 
 #### Composer:
 
-* Change the composer.json version to ^9.0.0-beta3**
+* Change the composer.json version to ^9.0.0-beta3
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell
