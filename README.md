@@ -181,7 +181,7 @@ By default, each Controller overrides its template heirarchy depending on the sp
 
 You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree. 
 
-For example, the following `src/controllers/single.php` example will inherit methods from `src/controllers/singular.php`;
+For example, the following `resources/controllers/Single.php` example will inherit methods from `resources/controllers/Singular.php`;
 
 **resources/controllers/Single.php**
 
