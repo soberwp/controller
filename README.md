@@ -8,10 +8,10 @@ WordPress plugin to enable a basic controller when using Blade with [Sage 9](htt
 
 Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
 
-If you are using Sage 9.0.0 from dev-master use: 
+If you are using Sage 9.0.0-beta3 use:
 
 ```shell
-$ composer require soberwp/controller:dev-master
+$ composer require soberwp/controller:9.0.0-beta3
 $ wp plugin activate controller
 ```
 
@@ -36,8 +36,6 @@ $ wp plugin activate controller
 
 By default, create folder `resources/controllers/` within your theme directory. 
 
-Please note: If you're are using 9.0.0-beta2, the default folder is `src/controllers/`
-
 Alternatively, you can define a custom path using the filter below within your themes `functions.php` file; 
 ```php
 
@@ -53,23 +51,21 @@ The controller will autoload PHP files within the above path and its subdirector
 #### Creating a basic Controller:
 
 * Controller files follow the same hierarchy as WordPress.
-    * You can view the controller hierarchy by using the Blade directive `@debug('hierarchy')` on any template or inspecting body classes ending with *-data.
-* Extend the Controller Class&mdash;the class name does not have to match the template name but it is recommended.
+    * You can view the controller hierarchy by using the Blade directive `@debug('hierarchy')`.
+* Extend the Controller Class&mdash; it is recommended that the class name matches the filename.
 * Create methods within the Controller Class;
-    * Use `public function` to expose the returned values to the Blade template/s. 
-    * Use `protected function` for internal controller methods as only public methods are exposed to the template. You can run them within `__construct`.
-* Return a value from the public methods which will be passed onto the Blade template.
-    * **Important:** The method name is converted to snake case and becomes the variable name in the Blade template.
+    * Use `public function` to expose the returned values to the Blade views/s. 
+    * Use `public static function` to use the function within your Blade view/s.
+    * Use `protected function` for internal controller methods as only public methods are exposed to the view. You can run them within `__construct`.
+* Return a value from the public methods which will be passed onto the Blade view.
+    * **Important:** The method name is converted to snake case and becomes the variable name in the Blade view.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
-    * **Important:** Static methods are not passed on as variables.
 
 #### Examples: 
 
-The following example will expose `$images` to `templates/single.blade.php` 
+The following example will expose `$images` to `resources/views/single.blade.php` 
 
-**src/controllers/Single.php**
-
-**Note:** You can also use camel case for Controller class file names (eg. Single.php)
+**resources/controllers/Single.php**
 
 ```php
 <?php
@@ -92,7 +88,7 @@ class Single extends Controller
 }
 ```
 
-**templates/single.blade.php**
+**resources/controllers/single.blade.php**
 
 ```php
 @if($images)
@@ -106,9 +102,9 @@ class Single extends Controller
 
 #### Creating Components;
 
-You can also create reusable components and include them in a template using PHP traits.
+You can also create reusable components and include them in a view using PHP traits.
 
-**src/controllers/partials/Images.php**
+**resources/controllers/partials/Images.php**
 
 ```php
 <?php
@@ -124,9 +120,9 @@ trait Images
 }
 ```
 
-You can now include the Images trait into any template to pass on variable $images; 
+You can now include the Images trait into any view to pass on variable $images; 
 
-**src/controllers/Single.php**
+**resources/controllers/Single.php**
 
 ```php
 <?php
@@ -147,7 +143,7 @@ You can use static methods to return content from your controller.
 
 This is useful if you are within the loop and want to return data for each post item individually.
 
-**src/controllers/Archive.php**
+**resources/controllers/Archive.php**
 
 ```php
 <?php
@@ -165,7 +161,7 @@ class Archive extends Controller
 }
 ```
 
-**templates/archive.php**
+**resources/views/archive.php**
 
 ```php
 @extends('layouts.base')
@@ -187,7 +183,7 @@ You can inherit the data from less specific Controllers in the heirarchy by impl
 
 For example, the following `src/controllers/single.php` example will inherit methods from `src/controllers/singular.php`;
 
-**src/controllers/Single.php**
+**resources/controllers/Single.php**
 
 ```php
 <?php
@@ -218,13 +214,13 @@ class Single extends Controller
 }
 ```
 
-You can override a `src/controllers/singular.php` method by declaring the same method name in `src/controllers/single.php`;
+You can override a `resources/controllers/Singular.php` method by declaring the same method name in `resources/controllers/Single.php`;
 
 #### Creating Global Properties;
 
-Methods created in `src/controllers/base.php` will be inherited by all templates and can not be disabled as `templates/layouts/base.php` extends all templates. 
+Methods created in `resources/controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views. 
 
-**src/controllers/Base.php**
+**resources/controllers/App.php**
 
 ```php
 <?php
@@ -233,7 +229,7 @@ namespace App;
 
 use Sober\Controller\Controller;
 
-class Base extends Controller
+class App extends Controller
 {
     public function siteName()
     {
@@ -250,17 +246,17 @@ protected $active = false;
 
 #### Blade Debugging;
 
-In your Blade templates, you can use the following to assist with debugging;
+In your Blade views, `resources/views`, you can use the following to assist with debugging;
 
-* `@debug('hierarchy')` echos a list of the controller hierarchy for the current template.
-* `@debug('controller')` echos a list of variables available in the template.
-* `@debug('dump')` var_dumps a list of variables available in the template, including `$post`.
+* `@debug('hierarchy')` echos a list of the controller hierarchy for the current view.
+* `@debug('controller')` echos a list of variables available in the view.
+* `@debug('dump')` var_dumps a list of variables available in the view, including `$post`.
 
 ## Updates
 
 #### Composer:
 
-* Change the composer.json version to ^1.0.2**
+* Change the composer.json version to ^9.0.0-beta3**
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell

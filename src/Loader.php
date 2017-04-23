@@ -60,7 +60,7 @@ class Loader
                 if (strpos($template, '.blade.php') || $template === 'index') {
                     continue;
                 }
-                $classes[] = str_replace('.php', '-data', $template);
+                $classes[] = basename(str_replace('.php', '-data', $template));
             }
             
             return array_merge($body, $classes);
