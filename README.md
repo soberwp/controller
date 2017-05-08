@@ -88,7 +88,7 @@ class Single extends Controller
 }
 ```
 
-**resources/controllers/single.blade.php**
+**resources/views/single.blade.php**
 
 ```php
 @if($images)
