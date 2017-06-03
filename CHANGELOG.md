@@ -1,4 +1,5 @@
-### 9.0.0-master:
+### 9.0.0-beta.3:
+* Changed to Composer package
 * Fix for app Controller bug
 * Rename base to app
 * Change default path from src/controllers to resources/controllers

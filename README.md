@@ -11,7 +11,7 @@ WordPress package to enable a controller when using Blade with [Sage 9](https://
 Browse into the Sage theme directory and run;
 
 ```shell
-$ composer require soberwp/controller:9.0.0-beta3
+$ composer require soberwp/controller:9.0.0-beta.3
 ```
 
 #### Requirements:
