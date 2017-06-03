@@ -2,7 +2,7 @@
 /*
 Plugin Name:        Controller
 Plugin URI:         http://github.com/soberwp/controller
-Description:        WordPress plugin to enable a basic controller when using Blade with Sage 9
+Description:        WordPress package to enable a basic controller when using Blade with Sage 9
 Version:            9.0.0
 Author:             Sober
 Author URI:         http://github.com/soberwp/
@@ -13,15 +13,6 @@ GitHub Branch:      master
 */
 
 namespace Sober\Controller;
-
-/**
- * Plugin
- */
-if (!defined('ABSPATH')) {
-    die;
-};
-
-require(file_exists($composer = __DIR__ . '/vendor/autoload.php') ? $composer : __DIR__ . '/dist/autoload.php');
 
 /**
  * Functions

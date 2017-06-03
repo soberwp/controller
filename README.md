@@ -1,32 +1,16 @@
 # Controller
 
-WordPress plugin to enable a controller when using Blade with [Sage 9](https://roots.io/sage/).
+WordPress package to enable a controller when using Blade with [Sage 9](https://roots.io/sage/).
 
 ## Installation
 
 #### Composer:
 
-Recommended method; [Roots Bedrock](https://roots.io/bedrock/) and [WP-CLI](http://wp-cli.org/)
-
-If you are using Sage 9.0.0-beta3 use:
+Browse into the Sage theme directory and run;
 
 ```shell
 $ composer require soberwp/controller:9.0.0-beta3
-$ wp plugin activate controller
 ```
-
-If you are using Sage 9.0.0-beta2 use: 
-
-```shell
-$ composer require soberwp/controller:9.0.0-beta2.1
-$ wp plugin activate controller
-```
-
-#### Manual:
-
-* Download the [zip file](https://github.com/soberwp/controller/archive/master.zip)
-* Unzip to your sites plugin folder
-* Activate via WordPress
 
 #### Requirements:
 

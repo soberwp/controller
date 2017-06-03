@@ -2,7 +2,7 @@
   "name": "soberwp/controller",
   "type": "wordpress-muplugin",
   "license": "MIT",
-  "description": "WordPress plugin to enable a basic controller when using Blade with Sage 9",
+  "description": "WordPress package to enable a basic controller when using Blade with Sage 9",
   "homepage": "https://github.com/soberwp",
   "authors": [
     {
@@ -31,7 +31,10 @@
     "psr-4": {
       "Sober\\Controller\\": "src/",
       "Sober\\Controller\\Module\\": "src/Module/"
-    }
+    },
+    "files": [
+      "controller.php"
+    ]
   },
   "scripts": {
     "test": [
