@@ -6,6 +6,8 @@ WordPress package to enable a controller when using Blade with [Sage 9](https://
 
 #### Composer:
 
+**Please note that Controller is no longer an mu-plugin and is now a Composer theme depedency.**
+
 Browse into the Sage theme directory and run;
 
 ```shell
