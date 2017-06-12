@@ -33,5 +33,7 @@ function debugger()
 /**
  * Hooks
  */
-add_action('init', __NAMESPACE__ . '\loader');
-add_action('init', __NAMESPACE__ . '\debugger');
+if (function_exists('add_action')) {
+    add_action('init', __NAMESPACE__ . '\loader');
+    add_action('init', __NAMESPACE__ . '\debugger');
+}
