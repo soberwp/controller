@@ -34,14 +34,12 @@ class Debugger
     {
         if ($this->type === 'hierarchy') {
             $this->hierarchy();
-        }
-
-        if ($this->type === 'dump') {
+        } elseif ($this->type === 'dump') {
             $this->dump();
-        }
-
-        if ($this->type === 'controller') {
+        } elseif ($this->type === 'controller') {
             $this->controller();
+        } else {
+            var_dump($this->type);
         }
     }
 
