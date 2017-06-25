@@ -57,8 +57,11 @@ class Loader
             $classes[] = 'app-data';
 
             foreach ($templates as $template) {
-                if (strpos($template, '.blade.php') || $template === 'index') {
+                if (strpos($template, '.blade.php') || $template === 'index.php') {
                     continue;
+                }
+                if ($template === 'index') {
+                    $template = 'index.php';
                 }
                 $classes[] = basename(str_replace('.php', '-data', $template));
             }
