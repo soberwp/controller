@@ -84,7 +84,7 @@ class Debugger
         $templates = array_reverse($templates);
         $path = get_stylesheet_directory() . '/controllers';
         $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : get_stylesheet_directory() . '/controllers');
-        $path = str_replace(get_stylesheet_directory(), '', $path);
+        $path = str_replace($path, substr($path, strripos($path, '/')), $path);
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
         foreach ($templates as $template) {
             if (strpos($template, '.blade.php') || $template === 'index.php') {
