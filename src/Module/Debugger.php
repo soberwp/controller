@@ -87,8 +87,11 @@ class Debugger
         $path = basename($path);
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
         foreach ($templates as $template) {
-            if (strpos($template, '.blade.php') || $template === 'index') {
+            if (strpos($template, '.blade.php') || $template === 'index.php') {
                 continue;
+            }
+            if ($template === 'index') {
+                $template = 'index.php';
             }
             echo "<li>" . $path . '/' . $template . "</li>";
         }

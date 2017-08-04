@@ -6,10 +6,10 @@ class Controller
 {
     protected $active = true;
     protected $tree = false;
+    protected $data = [];
 
     private $class;
     private $methods;
-    private $data = [];
 
     public function __setup()
     {
