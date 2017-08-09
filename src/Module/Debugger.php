@@ -83,23 +83,24 @@ class Debugger
         $templates[] = 'app.php';
         
         $templates = array_map(function ($template) {
-            return basename($template);
-        }, $templates);
-
-        $templates = array_reverse(array_unique($templates));
-        
-        $path = get_stylesheet_directory() . '/controllers';
-        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : get_stylesheet_directory() . '/controllers');
-        $path = basename($path);
-        
-        echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
-        foreach ($templates as $template) {
-            if (strpos($template, '.blade.php') || $template === 'index.php') {
-                continue;
-            }
+            $template = basename($template);
             if ($template === 'index') {
                 $template = 'index.php';
             }
+            if (strpos($template, '.blade.php')) {
+                $template = str_replace('.blade', '', $template);
+            }
+            return $template;
+        }, $templates);
+        
+        $templates = array_reverse(array_unique($templates));
+
+        $path = get_stylesheet_directory() . '/controllers';
+        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : get_stylesheet_directory() . '/controllers');
+        $path = basename($path);
+
+        echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
+        foreach ($templates as $template) {
             echo "<li>" . $path . '/' . $template . "</li>";
         }
         echo '</ul></pre>';
