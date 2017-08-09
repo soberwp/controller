@@ -83,14 +83,13 @@ class Debugger
         $templates[] = 'app.php';
         
         $templates = array_map(function ($template) {
-            $template = basename($template);
             if ($template === 'index') {
                 $template = 'index.php';
             }
             if (strpos($template, '.blade.php')) {
                 $template = str_replace('.blade', '', $template);
             }
-            return $template;
+            return basename($template);
         }, $templates);
         
         $templates = array_reverse(array_unique($templates));
