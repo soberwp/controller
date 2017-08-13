@@ -20,13 +20,13 @@ $ composer require soberwp/controller:9.0.0-beta.3
 
 ## Setup
 
-By default, create folder `resources/controllers/` within your theme directory. 
+By default, create folder `app/controllers/` within your theme directory.
 
-Alternatively, you can define a custom path using the filter below within your themes `functions.php` file; 
+Alternatively, you can define a custom path using the filter below within your themes `functions.php` file;
 ```php
 
 add_filter('sober/controller/path', function () {
-    return get_stylesheet_directory() . '/your-custom-folder';
+    return dirname(get_template_directory()) . '/app/custom-folder';
 });
 ```
 
@@ -40,18 +40,18 @@ The controller will autoload PHP files within the above path and its subdirector
     * You can view the controller hierarchy by using the Blade directive `@debug('hierarchy')`.
 * Extend the Controller Class&mdash; it is recommended that the class name matches the filename.
 * Create methods within the Controller Class;
-    * Use `public function` to expose the returned values to the Blade views/s. 
+    * Use `public function` to expose the returned values to the Blade views/s.
     * Use `public static function` to use the function within your Blade view/s.
     * Use `protected function` for internal controller methods as only public methods are exposed to the view. You can run them within `__construct`.
 * Return a value from the public methods which will be passed onto the Blade view.
     * **Important:** The method name is converted to snake case and becomes the variable name in the Blade view.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
 
-#### Examples: 
+#### Examples:
 
-The following example will expose `$images` to `resources/views/single.blade.php` 
+The following example will expose `$images` to `resources/views/single.blade.php`
 
-**resources/controllers/Single.php**
+**app/controllers/Single.php**
 
 ```php
 <?php
@@ -90,7 +90,7 @@ class Single extends Controller
 
 You can also create reusable components and include them in a view using PHP traits.
 
-**resources/controllers/partials/Images.php**
+**app/controllers/partials/Images.php**
 
 ```php
 <?php
@@ -106,9 +106,9 @@ trait Images
 }
 ```
 
-You can now include the Images trait into any view to pass on variable $images; 
+You can now include the Images trait into any view to pass on variable $images;
 
-**resources/controllers/Single.php**
+**app/controllers/Single.php**
 
 ```php
 <?php
@@ -129,7 +129,7 @@ You can use static methods to return content from your controller.
 
 This is useful if you are within the loop and want to return data for each post item individually.
 
-**resources/controllers/Archive.php**
+**app/controllers/Archive.php**
 
 ```php
 <?php
@@ -165,11 +165,11 @@ class Archive extends Controller
 
 By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
 
-You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree. 
+You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree.
 
-For example, the following `resources/controllers/Single.php` example will inherit methods from `resources/controllers/Singular.php`;
+For example, the following `app/controllers/Single.php` example will inherit methods from `app/controllers/Singular.php`;
 
-**resources/controllers/Single.php**
+**app/controllers/Single.php**
 
 ```php
 <?php
@@ -185,7 +185,7 @@ class Single extends Controller implements Tree
 }
 ```
 
-If you prefer you can also do this; 
+If you prefer you can also do this;
 
 ```php
 <?php
@@ -200,13 +200,13 @@ class Single extends Controller
 }
 ```
 
-You can override a `resources/controllers/Singular.php` method by declaring the same method name in `resources/controllers/Single.php`;
+You can override a `app/controllers/Singular.php` method by declaring the same method name in `app/controllers/Single.php`;
 
 #### Creating Global Properties;
 
-Methods created in `resources/controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views. 
+Methods created in `app/controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views.
 
-**resources/controllers/App.php**
+**app/controllers/App.php**
 
 ```php
 <?php
