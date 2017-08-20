@@ -16,7 +16,7 @@ $ composer require soberwp/controller:9.0.0-beta.3
 
 #### Requirements:
 
-* [PHP](http://php.net/manual/en/install.php) >= 5.6.x
+* [PHP](http://php.net/manual/en/install.php) >= 7.0
 
 ## Setup
 
