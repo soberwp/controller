@@ -1,3 +1,6 @@
+### dev-master:
+* Change default path from resources/controllers to app/controllers
+
 ### 9.0.0-beta.3:
 * Changed to Composer package
 * Fix for app Controller bug
