@@ -95,7 +95,7 @@ class Debugger
         $templates = array_reverse(array_unique($templates));
 
         $path = get_stylesheet_directory() . '/controllers';
-        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : $path);
+        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : dirname(get_template_directory()) . '/app/controllers');
         $path = basename($path);
 
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
