@@ -81,18 +81,25 @@ class Debugger
         global $wp_query;
         $templates = (new \Brain\Hierarchy\Hierarchy())->getTemplates($wp_query);
         $templates[] = 'app.php';
-        $templates = array_reverse($templates);
-        $path = get_stylesheet_directory() . '/controllers';
-        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : dirname(get_template_directory()) . '/app/controllers');
-        $path = basename($path);
-        echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
-        foreach ($templates as $template) {
-            if (strpos($template, '.blade.php') || $template === 'index.php') {
-                continue;
-            }
+        
+        $templates = array_map(function ($template) {
             if ($template === 'index') {
                 $template = 'index.php';
             }
+            if (strpos($template, '.blade.php')) {
+                $template = str_replace('.blade', '', $template);
+            }
+            return basename($template);
+        }, $templates);
+        
+        $templates = array_reverse(array_unique($templates));
+
+        $path = get_stylesheet_directory() . '/controllers';
+        $path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($path)) : dirname(get_template_directory()) . '/app/controllers');
+        $path = basename($path);
+
+        echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
+        foreach ($templates as $template) {
             echo "<li>" . $path . '/' . $template . "</li>";
         }
         echo '</ul></pre>';
