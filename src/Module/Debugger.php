@@ -99,9 +99,9 @@ class Debugger
         $path = basename($path);
 
         echo '<pre><strong>Hierarchy Debugger:</strong><ul>';
-        foreach ($templates as $template) {
-            echo "<li>" . $path . '/' . $template . "</li>";
-        }
+        array_map(function ($template) use ($path) {
+            echo '<li>' . $path . '/' . $template . '</li>';
+        }, $templates);
         echo '</ul></pre>';
     }
 }
