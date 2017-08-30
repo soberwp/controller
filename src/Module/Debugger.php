@@ -52,7 +52,8 @@ class Debugger
      */
     public function dump()
     {
-        var_dump($this->data);
+        $data = $this->data;
+        has_filter('sober/controller/dump') ? apply_filters('sober/controller/dump', $data) : var_dump($data);
     }
 
     /**
