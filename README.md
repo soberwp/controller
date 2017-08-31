@@ -35,7 +35,7 @@ By default, debugger used `var_dump()` function.
 Alternatively, you can define a custom function. if you use `symfony/var-dumper`, or something like this, using the filter below within your themes `functions.php` file;
 ```php
 
-add_filter('sober/controller/dump', function ($data) {
+add_filter('sober/controller/debugger/dump', function ($data) {
     dump($data);
 });
 ```
