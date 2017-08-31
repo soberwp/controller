@@ -22,7 +22,8 @@ class Debugger
      */
     protected function sanitize()
     {
-        $this->data = array_diff_key($this->data['__data'], array_flip(['__env', 'app', 'obLevel']));
+        $data = array_diff_key($this->data['__data'], array_flip(['__env', 'app', 'obLevel']));
+        $this->data = has_filter('sober/controller/debugger/sanitize') ? apply_filters('sober/controller/debugger/sanitize', $data) : $data;
     }
 
     /**
