@@ -67,8 +67,8 @@ class Debugger
         // unset($this->data['post']);
         echo '<pre><strong>Controller Debugger:</strong><ul>';
         foreach ($this->data as $name => $item) {
-            $item = (is_array($item) ? gettype($item) . '[' . count($item) . ']' : gettype($item));
-            echo "<li>$" . $name . " &raquo; " . $item . "</li>";
+            $item = (is_array($item) ? '<b>' . gettype($item) . '</b>' . '[<font color="#cc0000">' . count($item) . '</font>]' : '<b>' . gettype($item) . '</b>');
+            echo "<li>$" . $name . " <font color='#888a85'>=&gt;</font> " . $item . "</li>";
         }
         echo '</ul></pre>';
     }
