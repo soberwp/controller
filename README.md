@@ -40,6 +40,16 @@ add_filter('sober/controller/debugger/dump', function ($data) {
 });
 ```
 
+Filter to control the output data in the debugger.
+```php
+
+add_filter('sober/controller/debugger/sanitize', function ($data) {
+    $data = collect($data)->except(['post'])->all();
+
+    return $data;
+});
+```
+
 The controller will autoload PHP files within the above path and its subdirectories.
 
 ## Usage
