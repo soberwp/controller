@@ -43,10 +43,9 @@ add_filter('sober/controller/debugger/dump', function ($data) {
 Filter to control the output data in the debugger.
 ```php
 
-add_filter('sober/controller/debugger/sanitize', function ($data) {
-    $data = collect($data)->except(['post'])->all();
-
-    return $data;
+add_filter('sober/controller/debugger/sanitize', function () {
+    // exclude variables from debugger.
+    return ['post', 'loop'];
 });
 ```
 
