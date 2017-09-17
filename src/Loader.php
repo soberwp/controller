@@ -19,8 +19,7 @@ class Loader
 
         $this->setDocumentClasses();
         $this->setFileList();
-        $this->includeTraits();
-        $this->includeClasses();
+        $this->setClassInstances();
     }
 
     /**
@@ -31,16 +30,6 @@ class Loader
     protected function setPath()
     {
         $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : dirname(get_template_directory()) . '/app/controllers');
-    }
-
-    /**
-     * Set File List
-     *
-     * Recursively get file list and place into array
-     */
-    protected function setFileList()
-    {
-        $this->files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
     }
 
     /**
@@ -71,18 +60,13 @@ class Loader
     }
 
     /**
-     * Set Instance
+     * Set File List
      *
-     * Add instance name and class to $instances[]
+     * Recursively get file list and place into array
      */
-    protected function setInstance()
+    protected function setFileList()
     {
-        $class = get_declared_classes();
-        $class = '\\' . end($class);
-        $template = pathinfo($this->instance, PATHINFO_FILENAME);
-        // Convert camel case to match template
-        $template = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $template));
-        $this->instances[$template] = $class;
+        $this->files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
     }
 
     /**
@@ -106,6 +90,28 @@ class Loader
     {
         return (strstr(file_get_contents($this->instance), "extends Controller") ? true : false);
     }
+
+    /**
+     * Set Class Instances
+     *
+     * Load each Class instance and store in $instances[]
+     */
+     protected function setClassInstances()
+     {
+         foreach ($this->files as $filename => $file) {
+             $this->instance = $filename;
+             if (!$this->isFile() || !$this->isFileClass()) {
+                 continue;
+             }
+             // template
+             $template = pathinfo($this->instance, PATHINFO_FILENAME);
+             $template = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $template));
+             // class
+             $class = 'App\Controllers\\' . pathinfo($this->instance, PATHINFO_FILENAME);
+             // set
+             $this->instances[$template] = $class;
+         }
+     }
 
     /**
      * Return Base Data
@@ -143,39 +149,5 @@ class Loader
     public function getData()
     {
         return $this->instances;
-    }
-
-
-    /**
-     * Traits Loader
-     *
-     * Load each Trait instance
-     */
-    protected function includeTraits()
-    {
-        foreach ($this->files as $filename => $file) {
-            $this->instance = $filename;
-            if (!$this->isFile() || $this->isFileClass()) {
-                continue;
-            }
-            include_once $filename;
-        }
-    }
-
-    /**
-     * Classes Loader
-     *
-     * Load each Class instance
-     */
-    protected function includeClasses()
-    {
-        foreach ($this->files as $filename => $file) {
-            $this->instance = $filename;
-            if (!$this->isFile() || !$this->isFileClass()) {
-                continue;
-            }
-            include_once $filename;
-            $this->setInstance();
-        }
     }
 }
