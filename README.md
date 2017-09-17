@@ -30,6 +30,25 @@ add_filter('sober/controller/path', function () {
 });
 ```
 
+By default, debugger used `var_dump()` function.
+
+Alternatively, you can define a custom function. if you use `symfony/var-dumper`, or something like this, using the filter below within your themes `functions.php` file;
+```php
+
+add_filter('sober/controller/debugger/dump', function ($data) {
+    dump($data);
+});
+```
+
+Filter to control the output data in the debugger.
+```php
+
+add_filter('sober/controller/debugger/sanitize', function () {
+    // exclude variables from debugger.
+    return ['post', 'loop'];
+});
+```
+
 The controller will autoload PHP files within the above path and its subdirectories.
 
 ## Usage

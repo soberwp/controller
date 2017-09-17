@@ -22,7 +22,12 @@ class Debugger
      */
     protected function sanitize()
     {
-        $this->data = array_diff_key($this->data['__data'], array_flip(['__env', 'app', 'obLevel']));
+        $sanitize = ['__env', '__currentLoopData', 'app', 'obLevel'];
+        $data = apply_filters('sober/controller/debugger/sanitize', $sanitize);
+        $data = is_array($data) ? $data : [$data];
+        $data = has_filter('sober/controller/debugger/sanitize') ? array_merge($sanitize, $data) : $sanitize;
+        
+        $this->data = array_diff_key($this->data['__data'], array_flip($data));
     }
 
     /**
@@ -52,7 +57,8 @@ class Debugger
      */
     public function dump()
     {
-        var_dump($this->data);
+        $data = $this->data;
+        has_filter('sober/controller/debugger/dump') ? apply_filters('sober/controller/debugger/dump', $data) : var_dump($data);
     }
 
     /**
