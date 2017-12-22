@@ -25,6 +25,52 @@ abstract class Controller
      */
     private static $_activeDirectives = [];
 
+    /**
+     * List of blade directives which are not allowed to be used
+     *
+     * @var array
+     */
+    private static $_restrictedBladeDirectives = [
+        'json',
+        'verbatim',
+        'endverbatim',
+        'php',
+        'endphp',
+        'include',
+        'includeIf',
+        'includeWhen',
+        'includeFirst',
+        'each',
+        'push',
+        'endpush',
+        'stack',
+
+        // Control structures
+        'if',
+        'elseif',
+        'else',
+        'endif',
+        'unless',
+        'endunless',
+        'isset',
+        'endisset',
+        'empty',
+        'endempty',
+        'switch',
+        'case',
+        'endswitch',
+
+        // Loops
+        'for',
+        'endfor',
+        'foreach',
+        'endforeach',
+        'forelse',
+        'endforelse',
+        'while',
+        'endwhile',
+    ];
+
     protected function __construct() {}
 
     public function __setup()
@@ -88,6 +134,8 @@ abstract class Controller
      * registered directives from parent controllers except for the base controller (App)
      *
      * @param array $appDirectives Directives bound to the base controller (App)
+     *
+     * @throws ControllerException
      */
     public function __registerDirectives(array $appDirectives)
     {
@@ -109,6 +157,10 @@ abstract class Controller
         );
 
         foreach (self::$_activeDirectives as $name => $method) {
+            if (\in_array($name, self::$_restrictedBladeDirectives)) {
+                throw new ControllerException('You cannot define static method "'.$method->name.'" on '.static::class.' as this conflicts with the default blade directive');
+            }
+
             // Add the static methods as blade directives
             \App\sage('blade')->compiler()->directive(
                 $name,
