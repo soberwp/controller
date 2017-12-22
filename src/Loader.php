@@ -121,7 +121,7 @@ class Loader
     public function getAppData()
     {
         if (array_key_exists('app', $this->instances)) {
-            $app = new $this->instances['app']();
+            $app = $this->instances['app']::getInstance();
             $app->__setup();
             return $app->__getData();
         }

@@ -11,11 +11,11 @@ function loader()
     foreach ($loader->getData() as $template => $class) {
         // Pass data filter
         add_filter('sage/template/' . $template . '-data/data', function ($data) use ($loader, $class) {
-            $controller = new $class();
+            $controller = $class::getInstance();
             $controller->__setup();
             return array_merge($loader->getAppData(), $loader->getPostData(), $controller->__setTreeData($data), $controller->__getData());
         });
-        // Class alais
+        // Class alias
         class_alias($class, (new \ReflectionClass($class))->getShortName());
     }
 }

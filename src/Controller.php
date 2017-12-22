@@ -2,7 +2,7 @@
 
 namespace Sober\Controller;
 
-class Controller
+abstract class Controller
 {
     protected $active = true;
     protected $tree = false;
@@ -11,11 +11,29 @@ class Controller
     private $class;
     private $methods;
 
+    private static $_instances;
+
+    protected function __construct() {}
+
     public function __setup()
     {
+        if ($this->class) {
+            // Do not setup the class again
+            return;
+        }
+
         $this->__setClass();
         $this->__setMethods();
         $this->__runMethods();
+    }
+
+    final public static function getInstance()
+    {
+        if(!isset(self::$_instances[static::class])) {
+            self::$_instances[static::class] = new static();
+        }
+
+        return self::$_instances[static::class];
     }
 
     /**
@@ -116,4 +134,7 @@ class Controller
     {
         return ($this->active ? $this->data : array());
     }
+
+    private function __clone() {}
+    private function __wakeup() {}
 }
