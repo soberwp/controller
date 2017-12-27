@@ -13,6 +13,8 @@ function loader()
         add_filter('sage/template/' . $template . '-data/data', function ($data) use ($loader, $class) {
             $controller = $class::getInstance();
             $controller->__setup();
+            $controller->__registerDirectives($loader->getAppDirectives());
+            
             return array_merge($loader->getAppData(), $loader->getPostData(), $controller->__setTreeData($data), $controller->__getData());
         });
         // Class alias
