@@ -129,21 +129,6 @@ class Loader
     }
 
     /**
-     * Return Base blade directives
-     *
-     * @return array
-     */
-    public function getAppDirectives()
-    {
-        if (array_key_exists('app', $this->instances)) {
-            $app = $this->instances['app']::getInstance();
-            $app->__setup();
-            return $app->__getDirectives();
-        }
-        return array();
-    }
-
-    /**
      * Return Post Data
      *
      * @return array
