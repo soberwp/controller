@@ -46,10 +46,7 @@ The controller will autoload PHP files within the above path and its subdirector
 * Return a value from the public methods which will be passed onto the Blade view.
     * **Important:** The method name is converted to snake case and becomes the variable name in the Blade view.
     * **Important:** If the same method name is declared twice, the latest instance will override the previous.
-* Register methods from public static methods as blade directives
-    * **Important:** The static method name is converted to snake case and becomes the directive name in the Blade view.
-    * **Important:** If the same static method name is declared twice, the latest instance will override the previous.
-    
+
 #### Examples:
 
 The following example will expose `$images` to `resources/views/single.blade.php`
@@ -158,7 +155,7 @@ class Archive extends Controller
 @section('content')
 
   @while (have_posts()) @php(the_post())
-    @title
+    {{ Archive::title() }}
   @endwhile
 
 @endsection
@@ -168,7 +165,7 @@ class Archive extends Controller
 
 By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
 
-You can inherit the data and directives from less specific Controllers in the heirarchy by implementing the Tree.
+You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree.
 
 For example, the following `app/controllers/Single.php` example will inherit methods from `app/controllers/Singular.php`;
 
@@ -205,7 +202,7 @@ class Single extends Controller
 
 You can override a `app/controllers/Singular.php` method by declaring the same method name in `app/controllers/Single.php`;
 
-#### Creating Global Properties and Directives;
+#### Creating Global Properties;
 
 Methods created in `app/controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views.
 
@@ -224,24 +221,7 @@ class App extends Controller
     {
         return get_bloginfo('name');
     }
-    
-    public static function icon($name)
-    {
-        return '<i class="icon icon-'.$name.'"></i>';
-    }
 }
-```
-**resources/views/search.php**
-
-```php
-@extends('layouts.app')
-
-@section('content')
-
-  <p>Search on {{ $site_name }} using @icon('looking-glass')!</p>
-  {!! get_search_form(false) !!}
-
-@endsection
 ```
 
 #### Disable Option;
