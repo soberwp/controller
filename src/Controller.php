@@ -2,28 +2,16 @@
 
 namespace Sober\Controller;
 
-use Illuminate\View\Compilers\BladeCompiler;
-
 abstract class Controller
 {
     protected $active = true;
     protected $tree = false;
     protected $data = [];
-    protected $directives = [];
 
     private $class;
     private $methods;
 
     private static $_instances;
-
-    /**
-     * Registered blade directives
-     *
-     * Used when traversing the template hierarchy to deregister directives from parent controllers
-     *
-     * @var array
-     */
-    private static $_activeDirectives = [];
 
     protected function __construct() {}
 
@@ -82,67 +70,6 @@ abstract class Controller
     }
 
     /**
-     * Register directives with the blade container
-     *
-     * When the current controller does not implement the Tree interface we want to reset all previously
-     * registered directives from parent controllers except for the base controller (App)
-     *
-     * @param array $appDirectives Directives bound to the base controller (App)
-     */
-    public function __registerDirectives(array $appDirectives)
-    {
-        if (!$this->class->implementsInterface('\Sober\Controller\Module\Tree') && $this->tree === false) {
-            // The controller does not implement Tree, deregister all previous directives
-            $this->__deregisterDirectives();
-        }
-
-        // Because the directives from base controller (App) might be unregistered from in one of the previous
-        // iterations of parent controllers (some of which might not implement Tree interface)
-        // we need to prepend the base controller directives
-        self::$_activeDirectives = array_merge(
-            // Make sure app directives do not override anything from the subsequent controllers
-            $appDirectives,
-            // Overwrite app directives with anything registered before
-            self::$_activeDirectives,
-            // Overwrite parent directives from current controller
-            $this->directives
-        );
-
-        foreach (self::$_activeDirectives as $name => $method) {
-            // Add the static methods as blade directives
-            \App\sage('blade')->compiler()->directive(
-                $name,
-                function ($args) use ($method) {
-                    return '<?= call_user_func_array(["'.$method->class.'", "'.$method->name.'"], ['.$args.']); ?>';
-                }
-            );
-        }
-    }
-
-    /**
-     * Deregisters active directives
-     *
-     * If an unregistered directive is called from a template an exception will be thrown
-     *
-     * When we inherit the hierarchy and do not implement Tree interface we do not want
-     * the previously registered directives (from parent controllers) to work
-     */
-    private function __deregisterDirectives()
-    {
-        foreach (array_keys(self::$_activeDirectives) as $name) {
-            \App\sage('blade')->compiler()->directive(
-                $name,
-                function () use ($name) {
-                    return '<?php throw new \Sober\Controller\ControllerException("The directive @'.$name.' was not implemented in the current controller. Either implement the static method or the Sober\Controller\Module\Tree interface in '.static::class.'."); ?>';
-                }
-            );
-        }
-
-        // Reset the active directives
-        self::$_activeDirectives = [];
-    }
-
-    /**
      * Is Controller Method
      *
      * Return true if the method belongs to the parent class
@@ -186,15 +113,11 @@ abstract class Controller
      * Run Methods
      *
      * Run and convert each of the child class public methods
-     * Prepare the child class public static methods as blade directives
      */
     private function __runMethods()
     {
         foreach ($this->methods as $method) {
-            if ($this->__isControllerMethod($method)) {
-                continue;
-            } elseif ($this->__isStaticMethod($method)) {
-                $this->directives[$this->__sanitizeMethod($method->name)] = $method;
+            if ($this->__isControllerMethod($method) || $this->__isStaticMethod($method)) {
                 continue;
             }
             $this->data[$this->__sanitizeMethod($method->name)] = $this->{$method->name}();
@@ -210,16 +133,6 @@ abstract class Controller
     public function __getData()
     {
         return ($this->active ? $this->data : array());
-    }
-
-    /**
-     * Returns directives
-     *
-     * @return array
-     */
-    public function __getDirectives()
-    {
-        return ($this->active ? $this->directives : array());
     }
 
     private function __clone() {}
