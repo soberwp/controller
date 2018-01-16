@@ -2,61 +2,76 @@
 
 namespace Sober\Controller;
 
+use Sober\Controller\Utils;
+use Brain\Hierarchy\Hierarchy;
+
 class Loader
 {
-    protected $path;
-    protected $files;
-    protected $instance;
-    protected $instances = [];
+    // Dep
+    private $hierarchy;
 
-    public function __construct()
+    // User
+    private $namespace;
+    private $path;
+
+    // Internal
+    private $listOfFiles;
+    private $classesToRun = [];
+
+    /**
+     * Construct
+     *
+     * Initialise the Loader methods
+     */
+    public function __construct(Hierarchy $hierarchy)
     {
+        // Pass in WordPress hierarchy and set to param for reference
+        $this->hierarchy = $hierarchy;
+
+        // Set the default or custom namespace used for Controller files
+        $this->setNamespace();
+
+        // Set the path using $this->namespace assuming PSR4 autoloading
         $this->setPath();
 
+        // Return if there are no Controller files
         if (!file_exists($this->path)) {
             return;
         }
 
-        $this->setDocumentClasses();
-        $this->setFileList();
-        $this->setClassInstances();
+        // Set the list of files from the Controller files namespace/path
+        $this->setListOfFiles();
+
+        // Set the classes to run from the list of files
+        $this->setClassesToRun();
+
+        // Set the aliases for static functions from the list of classes to run
+        $this->setClassesAlias();
+
+        // Add the -data body classes for the Blade filter
+        $this->addBodyDataClasses();
+    }
+
+    /**
+     * Set Namespace
+     *
+     * Set the namespace from the filter or use the default
+     */
+    protected function setNamespace()
+    {
+        $this->namespace = (has_filter('sober/controller/namespace')
+            ? apply_filters('sober/controller/namespace', rtrim($this->namespace))
+            : 'App\Controllers');
     }
 
     /**
      * Set Path
      *
-     * Set the default path or get the custom path
+     * Set the path assuming PSR4 autoloading from $this->namespace
      */
     protected function setPath()
     {
-        $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : dirname(get_template_directory()) . '/app/controllers');
-    }
-
-    /**
-     * Set Classes to Body
-     *
-     * @return string
-     */
-    protected function setDocumentClasses()
-    {
-        add_filter('body_class', function ($body) {
-            global $wp_query;
-            $templates = (new \Brain\Hierarchy\Hierarchy())->getTemplates($wp_query);
-            $templates = array_reverse($templates);
-            $classes[] = 'app-data';
-
-            foreach ($templates as $template) {
-                if (strpos($template, '.blade.php') || $template === 'index.php') {
-                    continue;
-                }
-                if ($template === 'index') {
-                    $template = 'index.php';
-                }
-                $classes[] = basename(str_replace('.php', '-data', $template));
-            }
-
-            return array_merge($body, $classes);
-        });
+        $this->path = get_theme_file_path() . '/' . strtolower(str_replace('\\', '/', $this->namespace));
     }
 
     /**
@@ -64,31 +79,9 @@ class Loader
      *
      * Recursively get file list and place into array
      */
-    protected function setFileList()
+    protected function setListOfFiles()
     {
-        $this->files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
-    }
-
-    /**
-     * Is File
-     *
-     * Determine if the file is a PHP file (excludes directories)
-     * @return boolean
-     */
-    protected function isFile()
-    {
-        return (in_array(pathinfo($this->instance, PATHINFO_EXTENSION), ['php']));
-    }
-
-    /**
-     * Is File Class
-     *
-     * Determine if the file is a Controller Class
-     * @return boolean
-     */
-    protected function isFileClass()
-    {
-        return (strstr(file_get_contents($this->instance), "extends Controller") ? true : false);
+        $this->listOfFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
     }
 
     /**
@@ -96,58 +89,79 @@ class Loader
      *
      * Load each Class instance and store in $instances[]
      */
-     protected function setClassInstances()
-     {
-         foreach ($this->files as $filename => $file) {
-             $this->instance = $filename;
-             if (!$this->isFile() || !$this->isFileClass()) {
-                 continue;
-             }
-             // template
-             $template = pathinfo($this->instance, PATHINFO_FILENAME);
-             $template = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $template));
-             // class
-             $class = 'App\Controllers\\' . pathinfo($this->instance, PATHINFO_FILENAME);
-             // set
-             $this->instances[$template] = $class;
-         }
-     }
-
-    /**
-     * Return Base Data
-     *
-     * @return array
-     */
-    public function getAppData()
+    protected function setClassesToRun()
     {
-        if (array_key_exists('app', $this->instances)) {
-            $app = new $this->instances['app']();
-            $app->__setup();
-            return $app->__getData();
+        foreach ($this->listOfFiles as $filename => $file) {
+            // Exclude non-PHP files
+            if (!Utils::isFilePhp($filename)) {
+                continue;
+            }
+
+            // Exclude non-Controller classes
+            if (!Utils::doesFileContain($filename, 'extends Controller')) {
+                continue;
+            }
+
+            // Set the classes to run
+            $this->classesToRun[] = $this->namespace . '\\' . pathinfo($filename, PATHINFO_FILENAME);
         }
-        return array();
     }
 
     /**
-     * Return Post Data
+     * Set Class Alias
      *
-     * @return array
+     * Remove namespace from static functions
      */
-    public function getPostData()
+    public function setClassesAlias()
     {
-        if (is_singular()) {
-            return array('post' => get_post());
+        // Alias each class from $this->classesToRun
+        foreach ($this->classesToRun as $class) {
+            class_alias($class, (new \ReflectionClass($class))->getShortName());
         }
-        return array();
     }
 
     /**
-     * Return Data
+     * Set Document Classes
+     *
+     * Set the classes required for the blade filter to pass on data
+     * @return array
+     */
+    protected function addBodyDataClasses()
+    {
+        add_filter('body_class', function ($body) {
+            global $wp_query;
+            // Get the template hierarchy from WordPress
+            $templates = $this->hierarchy->getTemplates($wp_query);
+            // Reverse the templates returned from $this->hierarchy
+            $templates = array_reverse($templates);
+            // Add app-data to classes array
+            $classes[] = 'app-data';
+
+            foreach ($templates as $template) {
+                // Exclude .blade.php and index.php
+                if (strpos($template, '.blade.php') || $template === 'index.php') {
+                    continue;
+                }
+                // Exclude index as we use app
+                if ($template === 'index') {
+                    $template = 'index.php';
+                }
+                // Replace .php with -data and add to the classes array
+                $classes[] = basename(str_replace('.php', '-data', $template));
+            }
+
+            // Return the new body class list for WordPress
+            return array_merge($body, $classes);
+        });
+    }
+
+    /**
+     * Get Classes To Run
      *
      * @return array
      */
-    public function getData()
+    public function getClassesToRun()
     {
-        return $this->instances;
+        return $this->classesToRun;
     }
 }
