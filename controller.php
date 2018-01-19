@@ -11,6 +11,10 @@ use function App\sage;
  */
 function loader()
 {
+    if (!function_exists('\App\sage')) {
+        return;
+    }
+
     // Run WordPress hierarchy class
     $hierarchy = new Hierarchy();
 
@@ -47,6 +51,10 @@ function loader()
  */
 function debugger()
 {
+    if (!function_exists('\App\sage')) {
+        return;
+    }
+
     sage('blade')->compiler()->directive('debug', function () {
         return '<?php (new \Sober\Controller\Debugger(get_defined_vars())); ?>';
     });
@@ -59,7 +67,7 @@ function debugger()
 /**
  * Hooks
  */
-if (function_exists('add_action') && function_exists('\App\sage')) {
+if (function_exists('add_action')) {
     add_action('init', __NAMESPACE__ . '\loader');
     add_action('init', __NAMESPACE__ . '\debugger');
 }
