@@ -47,21 +47,19 @@ function loader()
  */
 function debugger()
 {
-    if (function_exists('\App\sage')) {
-        sage('blade')->compiler()->directive('debug', function () {
-            return '<?php (new \Sober\Controller\Debugger(get_defined_vars())); ?>';
-        });
+    sage('blade')->compiler()->directive('debug', function () {
+        return '<?php (new \Sober\Controller\Debugger(get_defined_vars())); ?>';
+    });
 
-        sage('blade')->compiler()->directive('dump', function ($param) {
-            return "<?php (new Illuminate\Support\Debug\Dumper)->dump($param); ?>";
-        });
-    }
+    sage('blade')->compiler()->directive('dump', function ($param) {
+        return "<?php (new Illuminate\Support\Debug\Dumper)->dump($param); ?>";
+    });
 }
 
 /**
  * Hooks
  */
-if (function_exists('add_action')) {
+if (function_exists('add_action') && function_exists('\App\sage')) {
     add_action('init', __NAMESPACE__ . '\loader');
     add_action('init', __NAMESPACE__ . '\debugger');
 }
