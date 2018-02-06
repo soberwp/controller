@@ -258,5 +258,5 @@ Includes support for [github-updater](https://github.com/afragen/github-updater)
 
 ## Other
 
-* For Controller updates follow [@withjacoby](https://twitter.com/withjacoby)
+* For updates follow [@withjacoby](https://twitter.com/withjacoby)
 * You can also [hire me](mailto:darren@jacoby.co.za) for WordPress related work
