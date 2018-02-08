@@ -246,7 +246,30 @@ class App extends Controller
 
 ### Advanced Custom Fields Module;
 
-Controller has an useful Advanced Custom Fields module to increase development time. Documentation on this coming soon. 
+Controller has an useful Advanced Custom Fields helper module to automate passing on fields.
+
+The automated fields will use the variable names from Advanced Custom Fields and pass them onto the view.
+
+```php
+<?php
+
+namespace App\Controllers;
+
+use Sober\Controller\Controller;
+
+class Single extends Controller
+{
+    // Pass on all fields from Advanced Custom Fields to the view
+    protected $acf = true;
+
+    // Pass on only field_1 from Advanced Custom Fields to the view
+    protected $acf = 'field_1';
+
+    // Pass on multiple fields from Advanced Custom Fields to the view
+    protected $acf = ['field_1', 'field_2'];
+}
+```
+
 
 ### Template Override Option;
 
