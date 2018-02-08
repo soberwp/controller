@@ -20,7 +20,7 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 
 ## Installation
 
-#### Composer:
+### Composer:
 
 [Sage](https://roots.io/sage/) ships with Controller. However, should you need to install, browse into the Sage theme directory and run;
 
@@ -28,7 +28,7 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 $ composer require soberwp/controller:2.0.0
 ```
 
-#### Requirements:
+### Requirements:
 
 * [PHP](http://php.net/manual/en/install.php) >= 7.0
 
@@ -47,7 +47,7 @@ add_filter('sober/controller/namespace', function () {
 
 ## Usage
 
-#### Overview:
+### Overview:
 
 * Controller class names follow the same hierarchy as WordPress.
 * The Controller class name should match the filename
@@ -67,7 +67,7 @@ add_filter('sober/controller/namespace', function () {
 
 The above may sound complicated on first read, so let's take a look at some examples to see how simple Controller is to use.
 
-#### Basic Controller;
+### Basic Controller;
 
 The following example will expose `$images` to `resources/views/single.blade.php`
 
@@ -106,7 +106,7 @@ class Single extends Controller
 @endif
 ```
 
-#### Using Functions;
+### Using Functions;
 
 You can use static methods to run a function from within your view.
 
@@ -144,7 +144,7 @@ class Archive extends Controller
 @endsection
 ```
 
-#### Using Components;
+### Using Components;
 
 You can also create reusable components and include them in any Controller class using PHP traits. 
 
@@ -181,7 +181,7 @@ class Single extends Controller
 }
 ```
 
-#### Inheriting the Tree/Heirarchy;
+### Inheriting the Tree/Heirarchy;
 
 By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work). 
 
@@ -222,7 +222,7 @@ class Single extends Controller
 
 You can override a `app/Controllers/Singular.php` method by declaring the same method name in `app/Controllers/Single.php`;
 
-#### Creating Global Properties;
+### Creating Global Properties;
 
 Methods created in `app/Controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views.
 
@@ -244,11 +244,11 @@ class App extends Controller
 }
 ```
 
-#### Advanced Custom Fields Module;
+### Advanced Custom Fields Module;
 
 Controller has an useful Advanced Custom Fields module to increase development time. Documentation on this coming soon. 
 
-#### Template Override Option;
+### Template Override Option;
 
 You should only use overrides in edge-case scenarios. Sticking to the WordPress hierarchy is recommended usage. However, one edge-case is the 404 template. 
 
@@ -267,13 +267,13 @@ class FourZeroFour extends Controller
 }
 ```
 
-#### Disable Option;
+### Disable Option;
 
 ```php
 protected $active = false;
 ```
 
-#### Blade Debugging;
+### Blade Debugging;
 
 In your Blade views, `resources/views`, you can use the following to assist with debugging;
 
