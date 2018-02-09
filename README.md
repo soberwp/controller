@@ -51,7 +51,7 @@ add_filter('sober/controller/namespace', function () {
 
 * Controller class names follow the same hierarchy as WordPress.
 * The Controller class name should match the filename
-    * `App.php` should use `class Controller extends App`
+    * For example `App.php` should define class as `class App extends Controller`
 * Create methods within the Controller Class;
     * Use `public function` to return data to the Blade views/s
         * The method name becomes the variable name in Blade
@@ -112,7 +112,7 @@ You can use static methods to run a function from within your view.
 
 This is useful if you are within the loop and want to return data for each post item.
 
-**app/controllers/Archive.php**
+**app/Controllers/Archive.php**
 
 ```php
 <?php
@@ -146,14 +146,14 @@ class Archive extends Controller
 
 ### Using Components;
 
-You can also create reusable components and include them in any Controller class using PHP traits. 
+You can also create reusable components and include them in any Controller class using PHP traits.
 
-**app/controllers/partials/Images.php**
+**app/Controllers/partials/Images.php**
 
 ```php
 <?php
 
-namespace App;
+namespace App\Controllers\Partials;
 
 trait Images
 {
@@ -166,30 +166,30 @@ trait Images
 
 You can now include the Images trait into any view to pass on variable $images;
 
-**app/controllers/Single.php**
+**app/Controllers/Single.php**
 
 ```php
 <?php
 
-namespace App;
+namespace App\Controllers;
 
 use Sober\Controller\Controller;
 
 class Single extends Controller
 {
-    use Images;
+    use Partials\Images;
 }
 ```
 
 ### Inheriting the Tree/Heirarchy;
 
-By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work). 
+By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
 
 You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree.
 
 For example, the following `app/Controllers/Single.php` example will inherit methods from `app/Controllers/Singular.php`;
 
-**app/controllers/Single.php**
+**app/Controllers/Single.php**
 
 ```php
 <?php
@@ -226,7 +226,7 @@ You can override a `app/Controllers/Singular.php` method by declaring the same m
 
 Methods created in `app/Controllers/App.php` will be inherited by all views and can not be disabled as `resources/views/layouts/app.php` extends all views.
 
-**app/controllers/App.php**
+**app/Controllers/App.php**
 
 ```php
 <?php
@@ -273,7 +273,7 @@ class Single extends Controller
 
 ### Template Override Option;
 
-You should only use overrides in edge-case scenarios. Sticking to the WordPress hierarchy is recommended usage. However, one edge-case is the 404 template. 
+You should only use overrides in edge-case scenarios. Sticking to the WordPress hierarchy is recommended usage. However, one edge-case is the 404 template.
 
 In your Blade view, you would have `404.blade.php` as it begins with a number. In this case, you could rename your Controller class `FourZeroFour.php` and use parameter `$template = '404';`
 
@@ -300,7 +300,7 @@ protected $active = false;
 
 In your Blade views, `resources/views`, you can use the following to assist with debugging;
 
-* `@debug` 
+* `@debug`
 * `@dump(__var__)`
 
 ## Updates
@@ -316,4 +316,3 @@ $ composer update
 
 * For updates follow [@withjacoby](https://twitter.com/withjacoby)
 * You can also [hire me](mailto:darren@jacoby.co.za) for WordPress or frontend work
-
