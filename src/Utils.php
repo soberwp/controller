@@ -23,7 +23,7 @@ class Utils
      */
     public static function doesFileContain($filename, $str)
     {
-        return ((exec('grep ' . escapeshellarg($str) . ' ' . $filename)) ? true : false);
+        return  strpos(file_get_contents($filename), $str) !== false;
     }
 
     /**
