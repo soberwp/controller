@@ -29,7 +29,10 @@ class Acf
         }
 
         // Get field from string
-        if (is_string($items)) {
+        if($items === 'options'){
+            $data = Acf::convert(get_fields('options'));
+        }
+        elseif (is_string($items)) {
             $data = Acf::convert(get_field($items));
         }
 
@@ -58,16 +61,24 @@ class Acf
         }
 
         // If $acf is string convert to array to get key included
-        if (is_string($acf)) {
+        if (is_string($acf) && $acf !== 'options') {
             $acf = [$acf];
         }
 
         // Get $acf items
         $items = Acf::get($acf);
 
+        if(!$items){
+            $items = [];
+        }
+
+
         // Create an array for each item returned
         foreach ($items as $key => $item) {
             $data[$key] = $item;
+        }
+        if(!$data){
+            $data = [];
         }
 
         // Return
