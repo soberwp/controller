@@ -71,7 +71,8 @@ class Loader
      */
     protected function setPath()
     {
-        $this->path = get_theme_file_path() . '/' . strtolower(str_replace('\\', '/', $this->namespace));
+        $reflection = new \ReflectionClass($this->namespace .'\App');
+        $this->path = dirname($reflection->getFileName());
     }
 
     /**
