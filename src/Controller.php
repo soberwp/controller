@@ -12,6 +12,7 @@ class Controller
     protected $template = false;
     protected $tree = false;
     protected $acf = false;
+    protected $acfPro = false;
 
     // Controller
     private $class;
@@ -223,6 +224,9 @@ class Controller
         if ($this->acf) {
             // Fetch current page Acf data and merge with $this->data
             $this->data = array_merge($this->data, Acf::getModuleData($this->acf));
+        }
+        if($this->acfPro){
+            $this->data = array_merge($this->data, Acf::getModuleData('options'));
         }
     }
 
