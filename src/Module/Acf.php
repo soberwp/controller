@@ -68,17 +68,14 @@ class Acf
         // Get $acf items
         $items = Acf::get($acf);
 
-        if(!$items){
-            $items = [];
-        }
-
+        // Initialize data array
+        $data = [];
 
         // Create an array for each item returned
-        foreach ($items as $key => $item) {
-            $data[$key] = $item;
-        }
-        if(!$data){
-            $data = [];
+        if (!empty($items)) {
+            foreach ($items as $key => $item) {
+                $data[$key] = $item;
+            }
         }
 
         // Return
