@@ -28,11 +28,7 @@ class Acf
             $data = Acf::convert(get_fields());
         }
 
-        // Get field from string
-        if($items === 'options'){
-            $data = Acf::convert(get_fields('options'));
-        }
-        elseif (is_string($items)) {
+        if (is_string($items)) {
             $data = Acf::convert(get_field($items));
         }
 
@@ -41,6 +37,11 @@ class Acf
             foreach ($items as $item) {
                 $data[$item] = Acf::convert(get_field($item));
             }
+        }
+
+        if(function_exists('acf_add_options_page')){
+            $options = Acf::convert(get_fields('options'));
+            $data = (object) array_merge((array)$data, (array) $options);
         }
 
         // Return

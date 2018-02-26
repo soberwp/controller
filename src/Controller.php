@@ -223,9 +223,6 @@ class Controller
         if ($this->acf) {
             // Fetch current page Acf data and merge with $this->data
             $this->data = array_merge($this->data, Acf::getModuleData($this->acf));
-            if(function_exists('acf_add_options_page')){
-                $this->data = array_merge($this->data, Acf::getModuleData('options'));
-            }
         }
     }
 
