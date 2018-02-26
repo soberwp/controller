@@ -28,6 +28,7 @@ class Acf
             $data = Acf::convert(get_fields());
         }
 
+        // Get field from string
         if (is_string($items)) {
             $data = Acf::convert(get_field($items));
         }
@@ -62,7 +63,7 @@ class Acf
         }
 
         // If $acf is string convert to array to get key included
-        if (is_string($acf) && $acf !== 'options') {
+        if (is_string($acf)) {
             $acf = [$acf];
         }
 
