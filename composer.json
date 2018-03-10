@@ -37,7 +37,7 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpcs --extensions=php --ignore=vendor/ ."
+      "phpcs --extensions=php --ignore=vendor/ ."
     ]
   }
 }
