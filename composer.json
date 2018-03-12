@@ -20,16 +20,14 @@
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
-    "symfony/yaml": "^3.2",
     "brain/hierarchy": "^2.3"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "2.*"
+    "squizlabs/php_codesniffer": "^3.2"
   },
   "autoload": {
     "psr-4": {
-      "Sober\\Controller\\": "src/",
-      "Sober\\Controller\\Module\\": "src/Module/"
+      "Sober\\Controller\\": "src/"
     },
     "files": [
       "controller.php"
@@ -37,7 +35,7 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpcs --extensions=php --ignore=vendor/ ."
+      "phpcs --extensions=php --ignore=vendor/ ."
     ]
   }
 }
