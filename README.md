@@ -25,7 +25,7 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 [Sage](https://roots.io/sage/) ships with Controller. However, should you need to install, browse into the Sage theme directory and run;
 
 ```shell
-$ composer require soberwp/controller:2.0.0
+$ composer require soberwp/controller:2.0.1
 ```
 
 ### Requirements:
