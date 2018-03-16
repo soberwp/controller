@@ -40,6 +40,11 @@ class Acf
             }
         }
 
+        if(function_exists('acf_add_options_page')){
+            $options = Acf::convert(get_fields('options'));
+            $data = (object) array_merge((array)$data, (array) $options);
+        }
+
         // Return
         return $data;
     }
