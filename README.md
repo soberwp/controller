@@ -25,7 +25,7 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 [Sage](https://roots.io/sage/) ships with Controller. However, should you need to install, browse into the Sage theme directory and run;
 
 ```shell
-$ composer require soberwp/controller:2.0.1
+$ composer require soberwp/controller:2.0.2
 ```
 
 ### Requirements:
@@ -248,7 +248,7 @@ class App extends Controller
 
 Controller has an useful Advanced Custom Fields helper module to automate passing on fields.
 
-The automated fields will use the variable names from Advanced Custom Fields and pass them onto the view.
+The automated fields will use the variable names from Advanced Custom Fields and pass them onto the view. Controller also passes on options values by default.
 
 ```php
 <?php
@@ -268,6 +268,14 @@ class Single extends Controller
     // Pass on multiple fields from Advanced Custom Fields to the view
     protected $acf = ['field_1', 'field_2'];
 }
+```
+
+The values are returned as objects, however you can disable this to keep them as arrays.
+
+```php
+add_filter('sober/controller/acf/array', function () {
+    return true;
+});
 ```
 
 

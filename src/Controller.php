@@ -12,13 +12,13 @@ class Controller
     protected $template = false;
     protected $tree = false;
     protected $acf = false;
+    protected $data = [];
 
     // Controller
     private $class;
     private $methods;
     private $dataMethods;
     private $staticMethods;
-    private $data = [];
 
     // Loader
     private $incomingData;
@@ -283,6 +283,7 @@ class Controller
 
         // Include the app data with this current items data
         $this->data = array_merge($this->data['__app'], $this->data);
+
     }
 
     /**

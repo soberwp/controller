@@ -5,6 +5,21 @@ namespace Sober\Controller\Module;
 class Acf
 {
     /**
+     * Set Raw Filter
+     *
+     * Return filter sober/controller/acf-array
+     * @return boolean
+     */
+    private static function setRawFilter()
+    {
+        $rawFilter = (has_filter('sober/controller/acf/array')
+        ? apply_filters('sober/controller/acf/array', $rawFilter)
+        : false);
+
+        return $rawFilter;
+    }
+
+    /**
      * Convert
      *
      * Return object from array
@@ -12,7 +27,10 @@ class Acf
      */
     private static function convert($arr)
     {
-        return json_decode(json_encode($arr));
+        if (!Acf::setRawFilter()) {
+            $arr = json_decode(json_encode($arr));
+        }
+        return $arr;
     }
 
     /**
@@ -38,6 +56,10 @@ class Acf
             foreach ($items as $item) {
                 $data[$item] = Acf::convert(get_field($item));
             }
+        }
+
+        if (function_exists('acf_add_options_page')) {
+            $data = Acf::convert(get_fields('options'));
         }
 
         // Return

@@ -36,7 +36,11 @@ function loader()
         $location = 'sage/template/' . $controller->__getTemplateParam() . '-data/data';
 
         // Pass data to filter
-        add_filter($location, function ($data) use ($class, $controller) {
+        add_filter($location, function ($data) use ($container, $class) {
+            // Recreate the class so that $post is included
+            $controller = $container->make($class);
+            $controller->__setParams();
+
             // Return the data
             return $controller
                 ->__setControllerData()

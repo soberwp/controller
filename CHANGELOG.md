@@ -1,4 +1,21 @@
-### dev-master:
+### 2.0.2:
+* Update deps
+* Pass in field data from Acf for options page
+* Allow access to data[] again
+* Fix $post bug not appearing in the data
+* Add filter to return Acf data as array
+
+### 2.0.1:
+* Bug fixes
+* Don't assume Controllers/ folder name
+
+### 2.0.0:
+* PSR4 loading
+* Template overrides for those underscores
+* Pass in field data from Acf automatically
+* New and improved debugger, includes static methods
+* Dependency injection
+* Bug fixes
 * Change default path from resources/controllers to app/controllers
 
 ### 9.0.0-beta.3:
