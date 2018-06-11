@@ -58,12 +58,17 @@ class Acf
             }
         }
 
-        if (function_exists('acf_add_options_page')) {
-            $data = Acf::convert(get_fields('options'));
-        }
-
         // Return
         return $data;
+    }
+
+    public static function getOptions()
+    {
+        if (function_exists('acf_add_options_page')) {
+            $options = Acf::convert(get_fields('options'));
+        }
+
+        return $options;
     }
 
     /**
@@ -72,7 +77,7 @@ class Acf
      * Return field values with first level of array as key
      * @return array
      */
-    public static function getModuleData($acf)
+    public static function getModuleData($acf, $options)
     {
         // If $acf is boolean set $acf to null to get all fields
         if (is_bool($acf)) {
@@ -86,6 +91,10 @@ class Acf
 
         // Get $acf items
         $items = Acf::get($acf);
+
+        if ($options) {
+            $items = array_merge(Acf::getOptions(), $items);
+        }
 
         // Initialize data array
         $data = [];

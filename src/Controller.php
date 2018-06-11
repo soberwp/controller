@@ -220,9 +220,12 @@ class Controller
      */
     final private function __setDatafromModuleAcf()
     {
-        if ($this->acf) {
+        if ($this->acf && $this->class->getShortName() === 'App') {
+            // Fetch current page Acf data and merge with $this->data, include $options from Acf
+            $this->data = array_merge($this->data, Acf::getModuleData($this->acf, true));
+        } else {
             // Fetch current page Acf data and merge with $this->data
-            $this->data = array_merge($this->data, Acf::getModuleData($this->acf));
+            $this->data = array_merge($this->data, Acf::getModuleData($this->acf, false));
         }
     }
 
