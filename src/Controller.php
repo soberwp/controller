@@ -23,6 +23,9 @@ class Controller
     // Loader
     private $incomingData;
 
+    // Deps
+    private $classAcf;
+
     /**
      * Set Params
      *
@@ -32,6 +35,9 @@ class Controller
     {
         // Create a reflection class for retrieving class name and methods
         $this->class = new \ReflectionClass($this);
+
+        // Create a class for module Acf
+        $this->classAcf = new Acf();
 
         // Set the default template using class name
         $this->__setTemplateParam();
@@ -220,13 +226,24 @@ class Controller
      */
     final private function __setDatafromModuleAcf()
     {
-        if ($this->acf && $this->class->getShortName() === 'App') {
-            // Fetch current page Acf data and merge with $this->data, include $options from Acf
-            $this->data = array_merge($this->data, Acf::getModuleData($this->acf, true));
-        } else {
-            // Fetch current page Acf data and merge with $this->data
-            $this->data = array_merge($this->data, Acf::getModuleData($this->acf, false));
+        // If $this->acf is not set then return
+        if (!$this->acf) {
+            return;
         }
+
+        // Set the fields data passed in from Controller
+        $this->classAcf->setData($this->acf);
+
+        // Get the options page is $this->acf is set to true on App
+        if ($this->template === 'app' && is_bool($this->acf)) {
+            $this->classAcf->setDataOptionsPage();
+        }
+
+        // Deterime if acf/array filter is enabled and return correct format
+        $this->classAcf->setDataReturnFormat();
+
+        // Merge the data from Acf module
+        $this->data = array_merge($this->data, $this->classAcf->getData());
     }
 
     /**

@@ -4,109 +4,97 @@ namespace Sober\Controller\Module;
 
 class Acf
 {
+    // Config
+    protected $data = [];
+
+    private $returnArrayFormat = false;
+
     /**
-     * Set Raw Filter
+     * Construct
+     *
+     * Initialise the Loader methods
+     */
+    public function __construct()
+    {
+        // Set the data return filter
+        $this->setReturnFilter();
+    }
+
+    /**
+     * Set Return Filter
      *
      * Return filter sober/controller/acf-array
-     * @return boolean
      */
-    private static function setRawFilter()
+    private function setReturnFilter()
     {
-        $rawFilter = (has_filter('sober/controller/acf/array')
-        ? apply_filters('sober/controller/acf/array', $rawFilter)
+        $this->returnArrayFormat = (has_filter('sober/controller/acf/array')
+        ? apply_filters('sober/controller/acf/array', $this->array)
         : false);
-
-        return $rawFilter;
     }
 
     /**
-     * Convert
+     * Set Data Return Format
      *
-     * Return object from array
-     * @return object
+     * Return object from array if acf/array filter is not set to true
      */
-    private static function convert($arr)
+    public function setDataReturnFormat()
     {
-        if (!Acf::setRawFilter()) {
-            $arr = json_decode(json_encode($arr));
-        }
-        return $arr;
-    }
-
-    /**
-     * Get Fields
-     *
-     * Return field values from Acf
-     * @return object
-     */
-    public static function get($items = null)
-    {
-        // Get all fields on page
-        if ($items === null) {
-            $data = Acf::convert(get_fields());
+        if ($this->returnArrayFormat) {
+            return;
         }
 
-        // Get field from string
-        if (is_string($items)) {
-            $data = Acf::convert(get_field($items));
-        }
-
-        // Get fields from array
-        if (is_array($items)) {
-            foreach ($items as $item) {
-                $data[$item] = Acf::convert(get_field($item));
+        if ($this->data) {
+            foreach ($this->data as $key => $item) {
+                $this->data[$key] = json_decode(json_encode($item));
             }
         }
-
-        // Return
-        return $data;
-    }
-
-    public static function getOptions()
-    {
-        if (function_exists('acf_add_options_page')) {
-            $options = Acf::convert(get_fields('options'));
-        }
-
-        return $options;
     }
 
     /**
-     * Controller Module
+     * Set Data Options Page
      *
-     * Return field values with first level of array as key
+     * Set data from the options page
+     */
+    public function setDataOptionsPage()
+    {
+        if (!function_exists('acf_add_options_page')) {
+            return;
+        }
+
+        $this->data['acf_options'] = get_fields('options');
+    }
+
+    /**
+     * Set Data
+     *
+     * Set data from passed in field keys
+     */
+    public function setData($acf)
+    {
+        // If $acf is boolean get all fields
+        if (is_bool($acf)) {
+            $this->data = get_fields();
+        }
+
+        if (is_string($acf)) {
+            $this->data = [$acf => get_field($acf)];
+        }
+
+        if (is_array($acf)) {
+            foreach ($acf as $item) {
+                $this->data[$item] = get_field($item);
+            }
+        }
+    }
+
+    /**
+     * Get Data
+     *
+     * Return the data
      * @return array
      */
-    public static function getModuleData($acf, $options)
+    public function getData()
     {
-        // If $acf is boolean set $acf to null to get all fields
-        if (is_bool($acf)) {
-            $acf = null;
-        }
-
-        // If $acf is string convert to array to get key included
-        if (is_string($acf)) {
-            $acf = [$acf];
-        }
-
-        // Get $acf items
-        $items = Acf::get($acf);
-
-        if ($options) {
-            $items = array_merge(Acf::getOptions(), $items);
-        }
-
-        // Initialize data array
-        $data = [];
-
-        // Create an array for each item returned
-        if (!empty($items)) {
-            foreach ($items as $key => $item) {
-                $data[$key] = $item;
-            }
-        }
-
-        // Return
-        return $data;
+        return $this->data;
     }
 }
