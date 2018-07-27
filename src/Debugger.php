@@ -162,7 +162,7 @@ class Debugger
         foreach ($this->controller->methods as $method) {
             echo '<li>';
             echo  $method->name;
-            echo '<small>' . $method->getStartLine() . '&mdash;' . $method->getEndLine() . '</small>';
+            echo '<small>line ' . $method->getStartLine() . '&mdash;' . $method->getEndLine() . '</small>';
             echo '</li>';
         }
 

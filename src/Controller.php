@@ -89,6 +89,9 @@ class Controller
     {
         $this->incomingData = $incomingData;
 
+        // Set incoming filter data from Sage to App before Debugger
+        $this->__setSageFilterData();
+
         // Set debugger data first to use only the raw data from the Controller
         $this->__setDebuggerData();
 
@@ -285,6 +288,19 @@ class Controller
     }
 
     /**
+     * Set Sage Filter Data
+     *
+     * Merge $this->data with $this->incomingData as Sage filters run before -data class filters
+     */
+    final private function __setSageFilterData()
+    {
+        if ($this->template === 'app') {
+            // Merge all incoming data from app to allow Sage add_filter support
+            $this->data = array_merge($this->data, $this->incomingData);
+        }
+    }
+
+    /**
      * Set App Data
      *
      * Update $this->data with __app
@@ -303,7 +319,6 @@ class Controller
 
         // Include the app data with this current items data
         $this->data = array_merge($this->data['__app'], $this->data);
-
     }
 
     /**
