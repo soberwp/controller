@@ -296,7 +296,7 @@ class Controller
     {
         if ($this->template === 'app') {
             // Merge all incoming data from app to allow Sage add_filter support
-            $this->data = array_merge($this->data, $this->incomingData);
+            $this->data = array_merge($this->incomingData, $this->data);
         }
     }
 
