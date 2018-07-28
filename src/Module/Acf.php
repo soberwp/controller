@@ -28,7 +28,7 @@ class Acf
     private function setReturnFilter()
     {
         $this->returnArrayFormat = (has_filter('sober/controller/acf/array')
-        ? apply_filters('sober/controller/acf/array', $this->array)
+        ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
         : false);
     }
 
