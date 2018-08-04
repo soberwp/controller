@@ -26,16 +26,10 @@ class Acf
      */
     private function setReturnFilter()
     {
-<<<<<<< HEAD
         $this->returnArrayFormat =
             (has_filter('sober/controller/acf/array')
             ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
             : false);
-=======
-        $this->returnArrayFormat = (has_filter('sober/controller/acf/array')
-        ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
-        : false);
->>>>>>> origin/master
     }
 
     /**

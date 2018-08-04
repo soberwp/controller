@@ -51,24 +51,8 @@ class Controller
      */
     final public function __setParams()
     {
-<<<<<<< HEAD
         // $this->class
         $this->class = new \ReflectionClass($this);
-=======
-        $this->incomingData = $incomingData;
-
-        // Set incoming filter data from Sage to App before Debugger
-        $this->__setSageFilterData();
-
-        // Set debugger data first to use only the raw data from the Controller
-        $this->__setDebuggerData();
-
-        // Set app data to $this->data['__app'] or merge with current data
-        $this->__setAppData();
-
-        // Set tree data to $this->data['__tree'] or merge with current data
-        $this->__setTreeData();
->>>>>>> origin/master
 
         // $this->classAcf
         if (class_exists('Acf')) {
@@ -258,32 +242,6 @@ class Controller
 
         // Set the updated array to $this->data for @debug use
         $this->data['__blade'] = $this->incomingData['__blade'];
-    }
-
-    /**
-     * Set Sage Filter Data
-     *
-     * Merge $this->data with $this->incomingData as Sage filters run before -data class filters
-     */
-    final private function __setSageFilterData()
-    {
-        if ($this->template === 'app') {
-            // Merge all incoming data from app to allow Sage add_filter support
-            $this->data = array_merge($this->incomingData, $this->data);
-        }
-    }
-
-    /**
-     * Set Sage Filter Data
-     *
-     * Merge $this->data with $this->incomingData as Sage filters run before -data class filters
-     */
-    final private function __setSageFilterData()
-    {
-        if ($this->template === 'app') {
-            // Merge all incoming data from app to allow Sage add_filter support
-            $this->data = array_merge($this->incomingData, $this->data);
-        }
     }
 
     /**
