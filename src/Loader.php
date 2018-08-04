@@ -59,7 +59,8 @@ class Loader
      */
     protected function setNamespace()
     {
-        $this->namespace = (has_filter('sober/controller/namespace')
+        $this->namespace =
+            (has_filter('sober/controller/namespace')
             ? apply_filters('sober/controller/namespace', rtrim($this->namespace))
             : 'App\Controllers');
     }
@@ -131,10 +132,13 @@ class Loader
     {
         add_filter('body_class', function ($body) {
             global $wp_query;
+
             // Get the template hierarchy from WordPress
             $templates = $this->hierarchy->getTemplates($wp_query);
+
             // Reverse the templates returned from $this->hierarchy
             $templates = array_reverse($templates);
+
             // Add app-data to classes array
             $classes[] = 'app-data';
 
@@ -143,10 +147,12 @@ class Loader
                 if (strpos($template, '.blade.php') || $template === 'index.php') {
                     continue;
                 }
+
                 // Exclude index as we use app
                 if ($template === 'index') {
                     $template = 'index.php';
                 }
+
                 // Replace .php with -data and add to the classes array
                 $classes[] = basename(str_replace('.php', '-data', $template));
             }

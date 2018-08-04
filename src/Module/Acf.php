@@ -16,7 +16,6 @@ class Acf
      */
     public function __construct()
     {
-        // Set the data return filter
         $this->setReturnFilter();
     }
 
@@ -27,9 +26,16 @@ class Acf
      */
     private function setReturnFilter()
     {
+<<<<<<< HEAD
+        $this->returnArrayFormat =
+            (has_filter('sober/controller/acf/array')
+            ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
+            : false);
+=======
         $this->returnArrayFormat = (has_filter('sober/controller/acf/array')
         ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
         : false);
+>>>>>>> origin/master
     }
 
     /**
@@ -71,7 +77,6 @@ class Acf
      */
     public function setData($acf)
     {
-        // If $acf is boolean get all fields
         if (is_bool($acf)) {
             $this->data = get_fields();
         }

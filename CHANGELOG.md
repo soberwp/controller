@@ -1,19 +1,23 @@
-### 2.0.2:
+### dev-master
+* @code directive 
+
+### 2.1.0:
 * Update deps
-* Pass in field data from Acf for options page
-* Allow access to data[] again
-* Fix $post bug not appearing in the data
+* Pass in field data from Acf Options under App class
+* Change $this->data from private to protected param
+* Fix $post bug not appearing in the $this->data
 * Add filter to return Acf data as array
+* Add __before and __after lifecycles
 
 ### 2.0.1:
-* Bug fixes
-* Don't assume Controllers/ folder name
+* Fix bug assuming Controllers/ folder name
 
 ### 2.0.0:
 * PSR4 loading
 * Template overrides for those underscores
 * Pass in field data from Acf automatically
-* New and improved debugger, includes static methods
+* Debugger to include static methods
+* Improve Debugger results
 * Dependency injection
 * Bug fixes
 * Change default path from resources/controllers to app/controllers

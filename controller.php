@@ -29,42 +29,50 @@ function loader()
         // Create the class on the DI container
         $controller = $container->make($class);
 
-        // Set the params required for location
+        // Set the params required for template param
         $controller->__setParams();
 
         // Determine template location to expose data
-        $location = 'sage/template/' . $controller->__getTemplateParam() . '-data/data';
+        $location = "sage/template/{$controller->__getTemplateParam()}-data/data";
 
         // Pass data to filter
         add_filter($location, function ($data) use ($container, $class) {
             // Recreate the class so that $post is included
             $controller = $container->make($class);
+
+            // Params
             $controller->__setParams();
 
-            // Return the data
-            return $controller
-                ->__setControllerData()
-                ->__setIncomingData($data)
-                ->__getData();
-        });
+            // Lifecycle
+            $controller->__before();
+
+            // Data
+            $controller->__setData($data);
+
+            // Lifecycle
+            $controller->__after();
+
+            // Return
+            return $controller->__getData();
+        }, 10, 2);
     }
 }
 
 /**
- * Debugger
+ * Blade
  */
-function debugger()
+function blade()
 {
     if (!function_exists('\App\sage')) {
         return;
     }
 
     sage('blade')->compiler()->directive('debug', function () {
-        return '<?php (new \Sober\Controller\Debugger(get_defined_vars())); ?>';
+        return '<?php (new \Sober\Controller\Blade\Debugger(get_defined_vars())); ?>';
     });
 
     sage('blade')->compiler()->directive('dump', function ($param) {
-        return "<?php (new Illuminate\Support\Debug\Dumper)->dump($param); ?>";
+        return "<?php (new Illuminate\Support\Debug\Dumper)->dump({$param}); ?>";
     });
 }
 
@@ -73,5 +81,5 @@ function debugger()
  */
 if (function_exists('add_action')) {
     add_action('init', __NAMESPACE__ . '\loader');
-    add_action('init', __NAMESPACE__ . '\debugger');
+    add_action('init', __NAMESPACE__ . '\blade');
 }

@@ -27,6 +27,17 @@ class Utils
     }
 
     /**
+     * Is Array Indexed
+     *
+     * Determine if the array is indexed
+     * @return boolean
+     */
+    public static function isArrayIndexed(array $array)
+    {
+        return array_keys($array) === range(0, count($array) - 1);
+    }
+
+    /**
      * Convert To Snake Case
      *
      * Convert camel case to snake case for data variables

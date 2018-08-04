@@ -1,12 +1,11 @@
 <?php
 
-namespace Sober\Controller;
+namespace Sober\Controller\Blade;
 
-use Sober\Controller\Utils;
+use Sober\Controller\Blade;
 
-class Debugger
+class Debugger extends Blade
 {
-    private $data;
     private $controller;
     private $controllerDataLog = [];
 
@@ -17,42 +16,19 @@ class Debugger
      */
     public function __construct($data)
     {
-        $this->data = $data['__data']['__debugger'];
+        // Set data from $data['__data']['__blade']
+        $this->setBladeData($data);
 
-        $this->setData();
-        $this->display();
+        // Render to view
+        $this->render();
     }
 
     /**
-     * Set Data
-     *
-     * Remove other array items should last item not include tree
-     */
-    private function setData()
-    {
-        // Get first item from data array
-        $first = reset($this->data);
-
-        // Get last item from data array
-        $last = end($this->data);
-
-        // If last item does not inherit tree and first class is App
-        if (!$last->tree && $first->class === 'App') {
-            // Rewrite $this->data with first (App) and last item in array
-            $this->data = [$first, $last];
-        // Else if $last does not inherit tree
-        } elseif (!$last->tree) {
-            // Rewrite $this->data with last item in array
-            $this->data = $last;
-        }
-    }
-
-    /**
-     * Display
+     * Render
      *
      * Loop through $this->data and echo debugger information
      */
-    private function display()
+    private function render()
     {
         echo '
             <style>
@@ -65,8 +41,7 @@ class Debugger
             }
             </style>';
 
-        echo '<pre class="debugger"><strong>Debugger:</strong>';
-        echo '<br><br>';
+        echo '<pre class="debugger"><strong>@debug</strong><br>';
 
         foreach ($this->data as $index => $controller) {
             // Set the class params for each Controller
@@ -82,27 +57,28 @@ class Debugger
 
             echo '<ul>';
 
-            // Display Controller data
+            // Render data
             if ($controller->data) {
-                $this->displayControllerData();
+                $this->renderData();
             }
 
-            // Display Controller methods
+            // Render methods
             if ($controller->methods) {
-                $this->displayControllerMethods();
+                $this->renderMethods();
             }
 
             echo '</ul>';
         }
+
         echo '</pre>';
     }
 
     /**
-     * Display Controller Data
+     * Render Data
      *
-     * Display the current Controller item data
+     * Render the current Controller item data
      */
-    private function displayControllerData()
+    private function renderData()
     {
         echo '<li>Data<ul>';
 
@@ -128,20 +104,19 @@ class Debugger
             $dataType = (isset($data->method) ? gettype($data->returned) : gettype($data));
 
             // Echo
-            echo '<li>';
-            echo $name;
+            echo "<li>{$name}";
 
             // Override
             if ($override) {
-                echo '<small>overrides ' . $override . '</small>';
+                echo "<small>overrides {$override}</small>";
             }
 
             // Data type
-            echo '<small>' . $dataType . '</small>';
+            echo "<small>{$dataType}</small>";
 
             // Method lines
             if (isset($data->method)) {
-                echo '<small>line ' . $data->method->getStartLine() . '&mdash;' . $data->method->getEndLine() . '</small>';
+                echo "<small>line {$data->method->getStartLine()}&mdash;{$data->method->getEndLine()}</small>";
             }
 
             echo '</li>';
@@ -151,19 +126,16 @@ class Debugger
     }
 
     /**
-     * Display Controller Methods
+     * Render Methods
      *
-     * Display the current Controller item methods
+     * Render the current Controller item methods
      */
-    private function displayControllerMethods()
+    private function renderMethods()
     {
         echo '<li>Methods<ul>';
 
         foreach ($this->controller->methods as $method) {
-            echo '<li>';
-            echo  $method->name;
-            echo '<small>line ' . $method->getStartLine() . '&mdash;' . $method->getEndLine() . '</small>';
-            echo '</li>';
+            echo "<li>{$method->name}<small>line {$method->getStartLine()}&mdash;{$method->getEndLine()}</small></li>";
         }
 
         echo '</ul></li>';
