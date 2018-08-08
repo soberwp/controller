@@ -30,7 +30,9 @@ $ composer require soberwp/controller:2.0.1
 
 ### Upgrading to 2.x.x:
 
-Controller 2.x.x uses [PSR4 autoloading](https://www.php-fig.org/psr/psr-4/) to load Controller classes. This is considered best practice. You will need to [update the following files](https://github.com/roots/sage/pull/2025/files) from 9.0.0-beta versions.
+Controller 2.x.x uses [PSR4 autoloading](https://www.php-fig.org/psr/psr-4/) to load Controller classes. This is considered best practice. You will need to [update the following files](https://github.com/roots/sage/pull/2025/files) from 9.0.0-beta versions. 
+
+Folder `controllers/` changes to `Controllers/`, class file names get changed to camelcase `App.php` and `FrontPage.php`. Controller namespaces are changed to `namespace App\Controllers;`
 
 ### Requirements:
 
