@@ -28,6 +28,10 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 $ composer require soberwp/controller:2.0.1
 ```
 
+## Upgrading to 2.x.x
+
+Controller 2.x.x uses [PSR4 autoloading](https://www.php-fig.org/psr/psr-4/) to load templates. This is considered best practice. You will need to [update the following files](https://github.com/roots/sage/pull/2025/files) from 9.0.0-beta versions.
+
 ### Requirements:
 
 * [PHP](http://php.net/manual/en/install.php) >= 7.0
