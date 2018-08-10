@@ -74,6 +74,11 @@ function blade()
     sage('blade')->compiler()->directive('dump', function ($param) {
         return "<?php (new Illuminate\Support\Debug\Dumper)->dump({$param}); ?>";
     });
+
+    sage('blade')->compiler()->directive('code', function ($param) {
+        $param = ($param) ? $param : 'false';
+        return "<?php (new \Sober\Controller\Blade\Coder(get_defined_vars(), {$param})); ?>";
+    });
 }
 
 /**
