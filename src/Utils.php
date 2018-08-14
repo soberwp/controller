@@ -38,6 +38,17 @@ class Utils
     }
 
     /**
+     * Does String Contain Markup
+     *
+     * Determine if the string contains markup
+     * @return boolean
+     */
+    public static function doesStringContainMarkup($str)
+    {
+        return (is_string($str) && $str !== strip_tags($str));
+    }
+
+    /**
      * Convert To Snake Case
      *
      * Convert camel case to snake case for data variables
