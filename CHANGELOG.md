@@ -3,6 +3,7 @@
 * Pass in field data from Acf Options under App class
 * Change $this->data from private to protected param
 * Fix $post bug not appearing in the $this->data
+* Fix Controller overriding filter $data
 * Add filter to return Acf data as array
 * Add __before and __after lifecycles
 * @code and @codeif
