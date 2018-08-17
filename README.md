@@ -349,7 +349,7 @@ To wrap the code in if statements, use `@codeif`
 
 ## Updates
 
-* Change the composer.json version to 2.0.0
+* Change the composer.json version to 2.1.0
 * Check [CHANGELOG.md](CHANGELOG.md) for any breaking changes before updating.
 
 ```shell
