@@ -25,10 +25,12 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
 [Sage](https://roots.io/sage/) ships with Controller. However, should you need to install, browse into the Sage theme directory and run;
 
 ```shell
-$ composer require soberwp/controller:2.0.1
+$ composer require soberwp/controller:2.1.0
 ```
 
 ### Upgrading to 2.x.x:
+
+Please note that versions 2.x.x are newer releases than 9.x.x-beta. The 9 was used to match Sage 9 versioning at the time.
 
 Controller 2.x.x uses [PSR4 autoloading](https://www.php-fig.org/psr/psr-4/) to load Controller classes. This is considered best practice. You will need to [update the following files](https://github.com/roots/sage/pull/2025/files) from 9.0.0-beta versions. 
 

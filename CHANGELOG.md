@@ -1,6 +1,3 @@
-### dev-master
-* @code directive 
-
 ### 2.1.0:
 * Update deps
 * Pass in field data from Acf Options under App class
@@ -8,6 +5,7 @@
 * Fix $post bug not appearing in the $this->data
 * Add filter to return Acf data as array
 * Add __before and __after lifecycles
+* @code and @codeif
 
 ### 2.0.1:
 * Fix bug assuming Controllers/ folder name
