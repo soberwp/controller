@@ -306,18 +306,46 @@ class FourZeroFour extends Controller
 }
 ```
 
+### Lifecycles;
+
+Controller Classes come with two lifecycle hooks for greater control. 
+
+```php
+public function __before()
+{
+    // runs after this->data is set up, but before the class methods are run
+}
+
+public function __after()
+{
+    // runs after all the class methods have run
+}
+```
+
 ### Disable Option;
 
 ```php
 protected $active = false;
 ```
 
-### Blade Debugging;
+### Blade Debugger;
 
 In your Blade views, `resources/views`, you can use the following to assist with debugging;
 
 * `@debug`
 * `@dump(__var__)`
+
+### Blade Coder;
+
+In your Blade views, `resources/views`, you can use the following to assist with jump-starting coding;
+
+* `@code`
+* `@code('__name of variable as string__')`
+
+To wrap the code in if statements, use `@codeif`
+
+* `@codeif`
+* `@codeif('__name of variable as string__')`
 
 ## Updates
 
