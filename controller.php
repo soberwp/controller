@@ -67,6 +67,7 @@ function blade()
         return;
     }
 
+    // Debugger
     sage('blade')->compiler()->directive('debug', function () {
         return '<?php (new \Sober\Controller\Blade\Debugger(get_defined_vars())); ?>';
     });
@@ -75,9 +76,15 @@ function blade()
         return "<?php (new Illuminate\Support\Debug\Dumper)->dump({$param}); ?>";
     });
 
+    // Coder
     sage('blade')->compiler()->directive('code', function ($param) {
         $param = ($param) ? $param : 'false';
         return "<?php (new \Sober\Controller\Blade\Coder(get_defined_vars(), {$param})); ?>";
+    });
+
+    sage('blade')->compiler()->directive('codeif', function ($param) {
+        $param = ($param) ? $param : 'false';
+        return "<?php (new \Sober\Controller\Blade\Coder(get_defined_vars(), {$param}, true)); ?>";
     });
 }
 

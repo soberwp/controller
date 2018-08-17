@@ -10,15 +10,19 @@ class Coder extends Blade
     private $code = '';
     private $indentation = '';
     private $includes;
+    private $codeif;
 
     /**
      * Construct
      *
      * Initialise the Code methods
      */
-    public function __construct($data, $includes)
+    public function __construct($data, $includes, $codeif = false)
     {
-        // Set data from @codevar
+        // codeif
+        $this->codeif = $codeif;
+
+        // Set data from @code('var')
         $this->setIncludeData($includes);
 
         // Set data from $data['__data']['__blade']
@@ -84,7 +88,7 @@ class Coder extends Blade
             $value = (isset($value->method) ? $value->returned : $value);
             
             // Router
-            // @codevar
+            // @code('var')
             if ($this->includes && in_array($name, $this->includes)) {
                 $this->router($name, $value);
             }
@@ -161,11 +165,13 @@ class Coder extends Blade
      */
     private function renderArrIndexed($name, $val)
     {
-        // Echo if
-        echo "{$this->indentation}@if (\${$this->code}$name)<br>";
+        if ($this->codeif) {
+            // Echo if
+            echo "{$this->indentation}@if (\${$this->code}$name)<br>";
 
-        // Increase indentation
-        $this->increaseIndentation();
+            // Increase indentation
+            $this->increaseIndentation();
+        }
 
         // Start foreach
         echo "{$this->indentation}@foreach (\${$this->code}$name as \$item)<br>";
@@ -190,11 +196,13 @@ class Coder extends Blade
         // End foreach
         echo "{$this->indentation}@endforeach<br>";
 
-        // Decrease indentation
-        $this->decreaseIndentation();
+        if ($this->codeif) {
+            // Decrease indentation
+            $this->decreaseIndentation();
 
-        // Echo endif
-        echo "{$this->indentation}@endif<br>";
+            // Echo endif
+            echo "{$this->indentation}@endif<br>";
+        }
     }
 
     /**
@@ -219,11 +227,13 @@ class Coder extends Blade
     {
         $this->code = "\${$this->code}{$name}";
 
-        // Echo if
-        echo "{$this->indentation}@if ({$this->code})<br>";
+        if ($this->codeif) {
+            // Echo if
+            echo "{$this->indentation}@if ({$this->code})<br>";
 
-        // Increase indentation
-        $this->increaseIndentation();
+            // Increase indentation
+            $this->increaseIndentation();
+        }
 
         // Wrap with {{ }} or {!! !!}
         if (Utils::doesStringContainMarkup($val)) {
@@ -234,11 +244,13 @@ class Coder extends Blade
 
         // Echo code
         echo "{$this->indentation}{$this->code}<br>";
+        
+        if ($this->codeif) {
+            // Increase indentation
+            $this->decreaseIndentation();
 
-        // Increase indentation
-        $this->decreaseIndentation();
-
-        // Echo endif
-        echo "{$this->indentation}@endif<br>";
+            // Echo endif
+            echo "{$this->indentation}@endif<br>";
+        }
     }
 }
