@@ -80,7 +80,8 @@ class Coder extends Blade
         unset($this->data['post']);
 
         // Start @code block
-        echo "<pre class=\"coder\"><strong>@code</strong><br>";
+        $type = ($this->codeif ? '@codeif' : '@code');
+        echo "<pre class=\"coder\"><strong>{$type}</strong><br>";
 
         // Run through each item
         foreach ($this->data as $name => $value) {
