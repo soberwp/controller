@@ -14,7 +14,9 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
     * [Advanced Custom Fields module](#advanced-custom-fields-module)
     * [Template override option](#template-override-option)
     * [Disable option](#disable-option)
-* [Debugging](#debugging)
+    * [Lifecycles](#lifecycles)
+* [Blade Debugger](#blade-debugger)
+* [Blade Coder](#blade-coder)
 
 <br>
 
