@@ -20,7 +20,9 @@ class Blade
         $first = reset($this->data);
 
         // Get last item from data array
-        $last = end($this->data);
+        if (count($this->data) > 1) {
+            $last = end($this->data);
+        }
 
         // If last item does not inherit tree and first class is App
         if (!$last->tree && $first->class === 'App') {
