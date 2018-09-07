@@ -146,6 +146,11 @@ class Controller
         // Deterime if acf/array filter is enabled and return correct format
         $this->classAcf->setDataReturnFormat();
 
+        // If there is no data return
+        if (!$this->classAcf->getData()) {
+            return;
+        }
+
         // Merge the data from Acf module
         // $this->data = array_merge($this->classAcf->getData(), $this->data);
         $this->data = array_merge($this->data, $this->classAcf->getData());
