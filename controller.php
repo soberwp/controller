@@ -10,7 +10,7 @@ use Brain\Hierarchy\Hierarchy;
  */
 function get_sage_function()
 {
-    $function_name = apply_filters('sober/controller/sage-namespace', 'App') . '\sage';
+    $function_name = apply_filters('sober/controller/sage_namespace', 'App') . '\sage';
     if (function_exists($function_name)) {
         return $function_name;
     }
