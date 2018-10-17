@@ -158,7 +158,7 @@ class Archive extends Controller
 
 You can also create reusable components and include them in any Controller class using PHP traits.
 
-**app/Controllers/partials/Images.php**
+**app/Controllers/Partials/Images.php**
 
 ```php
 <?php
