@@ -4,14 +4,26 @@ namespace Sober\Controller;
 
 use Brain\Hierarchy\Hierarchy;
 
-use function App\sage;
+/**
+ * @brief      Gets the sage function.
+ * @return     The sage function if found, otherwise false
+ */
+function get_sage_function()
+{
+    $function_name = apply_filters('sober/controller/sage_namespace', 'App') . '\sage';
+    if (function_exists($function_name)) {
+        return $function_name;
+    }
+    return false;
+}
 
 /**
  * Loader
  */
 function loader()
 {
-    if (!function_exists('\App\sage')) {
+    $sage = get_sage_function();
+    if (!$sage) {
         return;
     }
 
@@ -22,7 +34,7 @@ function loader()
     $loader = new Loader($hierarchy);
 
     // Use the Sage DI container
-    $container = sage();
+    $container = $sage();
 
     // Loop over each class
     foreach ($loader->getClassesToRun() as $class) {
@@ -63,26 +75,27 @@ function loader()
  */
 function blade()
 {
-    if (!function_exists('\App\sage')) {
+    $sage = get_sage_function();
+    if (!$sage) {
         return;
     }
 
     // Debugger
-    sage('blade')->compiler()->directive('debug', function () {
+    $sage('blade')->compiler()->directive('debug', function () {
         return '<?php (new \Sober\Controller\Blade\Debugger(get_defined_vars())); ?>';
     });
 
-    sage('blade')->compiler()->directive('dump', function ($param) {
+    $sage('blade')->compiler()->directive('dump', function ($param) {
         return "<?php (new Illuminate\Support\Debug\Dumper)->dump({$param}); ?>";
     });
 
     // Coder
-    sage('blade')->compiler()->directive('code', function ($param) {
+    $sage('blade')->compiler()->directive('code', function ($param) {
         $param = ($param) ? $param : 'false';
         return "<?php (new \Sober\Controller\Blade\Coder(get_defined_vars(), {$param})); ?>";
     });
 
-    sage('blade')->compiler()->directive('codeif', function ($param) {
+    $sage('blade')->compiler()->directive('codeif', function ($param) {
         $param = ($param) ? $param : 'false';
         return "<?php (new \Sober\Controller\Blade\Coder(get_defined_vars(), {$param}, true)); ?>";
     });
