@@ -9,7 +9,7 @@ WordPress package to enable a controller when using Blade with [Sage](https://ro
     * [Basic Controller](#basic-controller)
     * [Using functions](#using-static-methods)
     * [Using components](#creating-components)
-    * [Inheriting the tree/heirarchy](#inheriting-the-treeheirarchy)
+    * [Inheriting the tree/hierarchy](#inheriting-the-treehierarchy)
     * [Creating global properties](#creating-global-properties)
     * [Advanced Custom Fields module](#advanced-custom-fields-module)
     * [Template override option](#template-override-option)
@@ -191,11 +191,11 @@ class Single extends Controller
 }
 ```
 
-### Inheriting the Tree/Heirarchy;
+### Inheriting the Tree/Hierarchy;
 
-By default, each Controller overrides its template heirarchy depending on the specificity of the Controller (the same way WordPress templates work).
+By default, each Controller overrides its template hierarchy depending on the specificity of the Controller (the same way WordPress templates work).
 
-You can inherit the data from less specific Controllers in the heirarchy by implementing the Tree.
+You can inherit the data from less specific Controllers in the hierarchy by implementing the Tree.
 
 For example, the following `app/Controllers/Single.php` example will inherit methods from `app/Controllers/Singular.php`;
 
