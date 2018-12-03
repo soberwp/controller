@@ -96,6 +96,6 @@ class Acf
      */
     public function getData()
     {
-        return $this->data;
+        return is_array($this->data) ? $this->data : [];
     }
 }
