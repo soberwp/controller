@@ -5,15 +5,19 @@ namespace Sober\Controller;
 use Brain\Hierarchy\Hierarchy;
 
 /**
- * @brief      Gets the sage function.
- * @return     The sage function if found, otherwise false
+ * Sage Namespace
  */
-function get_sage_function()
+function sage()
 {
-    $function_name = apply_filters('sober/controller/sage_namespace', 'App') . '\sage';
-    if (function_exists($function_name)) {
-        return $function_name;
+    // Determine if project namespace has been changed
+    $sage = apply_filters('sober/controller/sage/namespace', 'App') . '\sage';
+
+    // Return the function if it exists
+    if (function_exists($sage)) {
+        return $sage;
     }
+
+    // Return false if function does not exist
     return false;
 }
 
@@ -22,7 +26,10 @@ function get_sage_function()
  */
 function loader()
 {
-    $sage = get_sage_function();
+    // Get Sage function
+    $sage = sage();
+
+    // Return if function does not exist
     if (!$sage) {
         return;
     }
@@ -75,7 +82,10 @@ function loader()
  */
 function blade()
 {
-    $sage = get_sage_function();
+    // Get Sage function
+    $sage = sage();
+
+    // Return if function does not exist
     if (!$sage) {
         return;
     }

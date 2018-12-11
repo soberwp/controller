@@ -73,17 +73,19 @@ class Acf
      */
     public function setData($acf)
     {
+        $query = get_queried_object();
+
         if (is_bool($acf)) {
-            $this->data = get_fields();
+            $this->data = get_fields($query);
         }
 
         if (is_string($acf)) {
-            $this->data = [$acf => get_field($acf)];
+            $this->data = [$acf => get_field($acf, $query)];
         }
 
         if (is_array($acf)) {
             foreach ($acf as $item) {
-                $this->data[$item] = get_field($item);
+                $this->data[$item] = get_field($item, $query);
             }
         }
     }

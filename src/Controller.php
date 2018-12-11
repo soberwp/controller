@@ -12,6 +12,7 @@ class Controller
     protected $template = false;
     protected $tree = false;
     protected $acf = false;
+    protected $post = false;
     protected $data = [];
 
     // Controller
@@ -119,8 +120,11 @@ class Controller
             return;
         }
 
+        // Set $this->post to allow users to use $this->post->post_title and others
+        $this->post = get_post();
+
         // Set the post array to be included in $this->data
-        $this->data['post'] = get_post();
+        $this->data['post'] = $this->post;
     }
 
         /**
@@ -152,7 +156,6 @@ class Controller
         }
 
         // Merge the data from Acf module
-        // $this->data = array_merge($this->classAcf->getData(), $this->data);
         $this->data = array_merge($this->data, $this->classAcf->getData());
     }
 
