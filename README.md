@@ -280,6 +280,8 @@ class Single extends Controller
 }
 ```
 
+Clone fields will return the value of each the fields in a separate variable, unless the _Prefix Field Names_ option is enabled in which case the the cloned fields will be returned in an object with the field name given to the clone field.
+
 The values are returned as objects, however you can disable this to keep them as arrays.
 
 ```php
@@ -287,7 +289,6 @@ add_filter('sober/controller/acf/array', function () {
     return true;
 });
 ```
-
 
 ### Template Override Option;
 
