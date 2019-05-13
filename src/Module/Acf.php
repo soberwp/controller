@@ -2,6 +2,8 @@
 
 namespace Sober\Controller\Module;
 
+use Sober\Controller\Utils;
+
 class Acf
 {
     // Config
@@ -30,6 +32,21 @@ class Acf
             (has_filter('sober/controller/acf/array')
             ? apply_filters('sober/controller/acf/array', $this->returnArrayFormat)
             : false);
+    }
+
+    /**
+     * Recursively iterates over array and adds a new snake cased keys=>value for all kebab cased keys
+     *
+     * Return void
+     */
+    private function recursiveSnakeCase(&$data) {
+      foreach ($data as $key => $val) {
+        if (is_array($val)) {
+          $this->recursiveSnakeCase($val);
+        } else {
+          $data[Utils::convertKebabCaseToSnakeCase($key)] = $val;
+        }
+      }
     }
 
     /**
@@ -88,6 +105,8 @@ class Acf
                 $this->data[$item] = get_field($item, $query);
             }
         }
+
+        $this->recursiveSnakeCase($this->data);
     }
 
     /**
