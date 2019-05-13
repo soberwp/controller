@@ -35,7 +35,7 @@ class Acf
     }
 
     /**
-     * Recursively iterates over array and adds a new snake cased keys=>value for all kebab cased keys
+     * Iterates over array and adds a new snake cased key, with orignial value, for each kebab cased key
      *
      * Return void
      */
