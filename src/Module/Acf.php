@@ -40,6 +40,9 @@ class Acf
      * Return void
      */
     private function recursiveSnakeCase(&$data) {
+      if(!is_array($data))
+        return;
+        
       foreach ($data as $key => $val) {
         if (is_array($val)) {
           $this->recursiveSnakeCase($val);
