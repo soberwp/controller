@@ -69,4 +69,15 @@ class Utils
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $str));
     }
+
+    /**
+     * Convert To Snake Case
+     *
+     * Converts kebab case to snake case for data variables
+     * @return string
+     */
+    public static function convertKebabCaseToSnakeCase($str)
+    {
+      return strtolower(str_replace('-', '_', $str));
+    }
 }
