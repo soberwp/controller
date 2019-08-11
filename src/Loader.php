@@ -100,6 +100,7 @@ class Loader
             }
 
             // Exclude non-Controller classes
+            $reflection = new \ReflectionClass($this->namespace .'\App');
             if (!$reflection->isSubclassOf('Sober\Controller\Controller')) {
                 continue;
             }
