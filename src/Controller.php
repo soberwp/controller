@@ -188,6 +188,7 @@ class Controller
                 $method->class !== 'Sober\Controller\Controller' &&
                 $method->name !== '__construct' &&
                 $method->name !== '__before' &&
+                $method->getNumberOfRequiredParameters() < 1 && // Skip functions that requires parameters, those are for other use
                 $method->name !== '__after';
         });
 
