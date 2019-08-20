@@ -100,7 +100,7 @@ class Loader
             }
 
             // Exclude non-Controller classes
-            if (!$reflection->isSubclassOf('Sober\Controller\Controller')) {
+            if (!Utils::doesFileContain($filename, 'extends Controller')) {
                 continue;
             }
 

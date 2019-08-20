@@ -16,6 +16,17 @@ class Utils
     }
 
     /**
+     * Does File Contain
+     *
+     * Determine if the file contains a string
+     * @return boolean
+     */
+    public static function doesFileContain($filename, $str)
+    {
+        return strpos(file_get_contents($filename), $str) !== false;
+    }
+
+    /**
      * Is Array Indexed
      *
      * Determine if the array is indexed
