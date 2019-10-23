@@ -147,7 +147,7 @@ class Archive extends Controller
 
 @section('content')
 
-  @while (have_posts()) @php(the_post())
+  @while (have_posts()) @php the_post() @endphp
     {{ Archive::title() }}
   @endwhile
 
