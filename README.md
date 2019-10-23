@@ -350,6 +350,11 @@ To wrap the code in if statements, use `@codeif`
 * `@codeif`
 * `@codeif('__name of variable as string__')`
 
+## Support
+
+* Follow [@withjacoby](https://twitter.com/withjacoby) on Twitter
+* Buy me a beer or pay my rent, [paypal.me/darrenjacoby](https://paypal.me/darrenjacoby)
+
 ## Updates
 
 * Change the composer.json version to 2.1.1
@@ -358,8 +363,3 @@ To wrap the code in if statements, use `@codeif`
 ```shell
 $ composer update
 ```
-
-## Other
-
-* For updates follow [@withjacoby](https://twitter.com/withjacoby)
-* You can also [hire me](mailto:darren@jacoby.co.za) for WordPress or frontend work
