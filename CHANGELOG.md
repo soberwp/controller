@@ -1,3 +1,6 @@
+### 2.1.2:
+* Fixes
+
 ### 2.1.1:
 * Update Brain/Hierarchy to 2.4.0 for CPT templates [#86](https://github.com/soberwp/controller/issues/86)
 * Add filter sober/controller/sage/namespace to allow for a custom Sage namespace [#104](https://github.com/soberwp/controller/issues/104)
