@@ -1,6 +1,6 @@
 # Controller
 
-WordPress package to enable a controller when using Blade with [Sage](https://roots.io/sage/)
+WordPress package to enable a controller when using Blade with [Sage 9](https://roots.io/sage/) (Please note, Sage 10 uses Composers and not this package.)
 
 * [Installation](#installation)
 * [Setup](#setup)
