@@ -5,6 +5,7 @@ namespace Sober\Controller;
 class Loader
 {
     protected $path;
+    protected $namespace;
     protected $files;
     protected $instance;
     protected $instances = [];
@@ -17,6 +18,7 @@ class Loader
             return;
         }
 
+        $this->setNamespace();
         $this->setDocumentClasses();
         $this->setFileList();
         $this->includeTraits();
@@ -31,6 +33,16 @@ class Loader
     protected function setPath()
     {
         $this->path = (has_filter('sober/controller/path') ? apply_filters('sober/controller/path', rtrim($this->path)) : dirname(get_template_directory()) . '/app/controllers');
+    }
+
+    /**
+     * Set Namespace
+     *
+     * Set the default namespace or get custom namespace
+     */
+    protected function setNamespace()
+    {
+        $this->namespace = (has_filter('sober/controller/namespace') ? apply_filters('sober/controller/namespace', rtrim($this->namespace)) : 'App\\Controllers');
     }
 
     /**
@@ -77,8 +89,14 @@ class Loader
      */
     protected function setInstance()
     {
+        $namespace_length = strlen($this->namespace);
         $class = get_declared_classes();
-        $class = '\\' . end($class);
+        $classCount = count($class);
+        $classIndex = $classCount - 1;
+        while(substr($class[$classIndex], 0, $namespace_length) != $this->namespace) {
+            $classIndex--;
+        }
+        $class = '\\' . $class[$classIndex];
         $template = pathinfo($this->instance, PATHINFO_FILENAME);
         // Convert camel case to match template
         $template = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $template));
