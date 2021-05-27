@@ -95,6 +95,10 @@ class Acf
     {
         $query = get_queried_object();
 
+        if (!acf_get_valid_post_id($query)) {
+            return;
+        }
+
         if (is_bool($acf)) {
             $this->data = get_fields($query);
         }
