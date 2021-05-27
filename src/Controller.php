@@ -108,7 +108,7 @@ class Controller
      *
      * Set the WordPress post
      */
-    final private function __setDataFromPost()
+    private function __setDataFromPost()
     {
         // Only set data from $post to App class
         if ($this->template !== 'app') {
@@ -132,7 +132,7 @@ class Controller
      *
      * Set the Advanced Custom Fields data automatically
      */
-    final private function __setDatafromModuleAcf()
+    private function __setDatafromModuleAcf()
     {
         // If $this->acf is not set then return
         if (!$this->acf) {
@@ -164,7 +164,7 @@ class Controller
      *
      * Merge $this->data with $this->incomingData as Sage filters run before -data class filters
      */
-    final private function __setDataFromFilter()
+    private function __setDataFromFilter()
     {
         if ($this->template === 'app') {
             // Merge all incoming data from app to allow Sage add_filter support
@@ -177,7 +177,7 @@ class Controller
      *
      * Set $this->methods with all public methods
      */
-    final private function __setDataFromMethods()
+    private function __setDataFromMethods()
     {
         // Get all public methods from class
         $this->methods = $this->class->getMethods(\ReflectionMethod::IS_PUBLIC);
@@ -217,7 +217,7 @@ class Controller
      *
      * Update $this->data with __blade
      */
-    final private function __setBladeData()
+    private function __setBladeData()
     {
         // Get the data
         $debuggerData = $this->data;
@@ -257,7 +257,7 @@ class Controller
      *
      * Update $this->data with __app
      */
-    final private function __setAppData()
+    private function __setAppData()
     {
         if ($this->template === 'app') {
             // Save the app data in $this->data['__app']
@@ -278,7 +278,7 @@ class Controller
      *
      * Update $this->data with tree data if required and store existing data
      */
-    final private function __setTreeData()
+    private function __setTreeData()
     {
         if ($this->tree) {
             // Include existing data with this Controller data
