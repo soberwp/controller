@@ -78,11 +78,13 @@ class Acf
     public function setDataOptionsPage()
     {
         if (!function_exists('acf_add_options_page')) {
-            return;
+            return [];
         }
 
         if (get_fields('options')) {
             $this->data['acf_options'] = get_fields('options');
+        } else {
+            return [];
         }
     }
 
